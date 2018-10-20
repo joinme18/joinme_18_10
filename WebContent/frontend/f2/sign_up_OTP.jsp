@@ -17,6 +17,7 @@ body {
 	background: url('img/bg-01.jpg') no-repeat;
 	background-size: cover;
 }
+
 </style>
 </head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">

@@ -32,7 +32,7 @@ public class OTP {
 		String mainUrl = "http://control.msg91.com/api/sendotp.php?";
 		StringBuilder sbPostData = new StringBuilder(mainUrl);
 		sbPostData.append("authkey=" + authkey);
-		sbPostData.append("&mobiles=" + mobiles);
+		sbPostData.append("&mobiles=" + mobile_number);
 		sbPostData.append("&message=" + encoded_message);
 		sbPostData.append("&route=" + route);
 		sbPostData.append("&sender=" + senderId);

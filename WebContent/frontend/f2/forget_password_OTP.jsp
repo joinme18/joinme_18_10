@@ -25,17 +25,16 @@ body {
 <body>
 	<%
 	if("send".equals(request.getParameter("forget_password")))
-	{	int otp=Integer.parseInt(request.getParameter("generated_otp"));
+	{	int otp=request.getParameter("generated_otp")!=null?Integer.parseInt(request.getParameter("generated_otp")):OTP.MessageOTP(request.getParameter("mobile_number"), OTP.RandomOTP()," ");
 		if(request.getParameter("otp")==null)
-		{
-			otp=OTP.MessageOTP(request.getParameter("mobile_number"), OTP.RandomOTP(),"");
-		}
+	
 		if(request.getParameter("input_otp")!=null&&request.getParameter("generated_otp").equals(request.getParameter("input_otp")))
 		{
-			
+			System.out.println("entered right otp");
 		}
 		else if(request.getParameter("input_otp")!=null)
 		{
+			System.out.println("entered wrong otp");
 		%>
 		entered wrong otp
 		<%
@@ -48,7 +47,7 @@ body {
 			<div class="login-form">
 				<input id="tab-1" type="radio" name="tab" class="sign-in" checked>
 				<label for="tab-1" class="tab">OTP</label>
-				<form action="forget_password_OTP" method="post">
+				<form action="forget_password_OTP.jsp" method="post">
 					<div class="group">
 						<label for="user" class="label">OTP</label> 
 						<input id="user" name="input_otp" type="text" class="input">
@@ -72,7 +71,7 @@ body {
 			<div class="login-form">
 				<input id="tab-1" type="radio" name="tab" class="sign-in" checked>
 				<label for="tab-1" class="tab">Forget Password</label>
-				<form action="forget_password_OTP" method="post">
+				<form action="forget_password_OTP.jsp" method="post">
 					<div class="group">
 						<label for="user" class="label">Phone number</label> 
 						<input id="user" name="mobile_number" type="text" class="input">
