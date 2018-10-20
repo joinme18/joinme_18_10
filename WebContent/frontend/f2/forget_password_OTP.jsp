@@ -26,8 +26,7 @@ body {
 	<%
 	if("send".equals(request.getParameter("forget_password")))
 	{	int otp=request.getParameter("generated_otp")!=null?Integer.parseInt(request.getParameter("generated_otp")):OTP.MessageOTP(request.getParameter("mobile_number"), OTP.RandomOTP()," ");
-		if(request.getParameter("otp")==null)
-	
+		
 		if(request.getParameter("input_otp")!=null&&request.getParameter("generated_otp").equals(request.getParameter("input_otp")))
 		{
 			System.out.println("entered right otp");
