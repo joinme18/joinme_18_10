@@ -222,4 +222,54 @@ public class UserDAO {
 		}
 	}
 
+	public boolean moblieNumberExist(String mobile_number) {
+		boolean flag = false;
+		if (conn == null) {
+			conn = JoinMeDB.getConnection();
+		}
+		try {
+			String query="select mobile_number from user where mobile_number=?";
+			
+			ps=conn.prepareStatement(query);
+			ps.setString(1,mobile_number);
+			rs=ps.executeQuery();
+			
+			if(rs.next()) {
+				flag=true;
+			}
+
+		} catch (Exception e) {
+			System.out.println("+++exception at checkMoblieNumber" + e);
+		} finally {
+			ps = null;
+			conn = null;
+			return flag;
+		}
+	}
+
+	public boolean uniqueIDExist(String unique_id) {
+		boolean flag = false;
+		if (conn == null) {
+			conn = JoinMeDB.getConnection();
+		}
+		try {
+				String query="select unique_id from user where unique_id=?";
+				
+				ps=conn.prepareStatement(query);
+				ps.setString(1,unique_id);
+				rs=ps.executeQuery();
+				
+				if(rs.next()) {
+					flag=true;
+				}
+
+		} catch (Exception e) {
+			System.out.println("+++exception at uniqueIDExist" + e);
+		} finally {
+			ps = null;
+			conn = null;
+			return flag;
+		}
+	}
+	
 }
