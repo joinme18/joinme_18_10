@@ -15,7 +15,34 @@
 
 
 
+<%
+if("send".equals(request.getParameter("forget_password"))&&session.getAttribute("otp")==null)
+{
+   
+	session.setAttribute("mobile_number",request.getParameter("mobile_number"));
+	session.setAttribute("otp",(OTP.MessageOTP(request.getParameter("mobile_number"), OTP.RandomOTP(), "")));
+}
+if("resend_otp".equals(request.getParameter("otp_form")))
+{
 
+	session.setAttribute("otp",(OTP.MessageOTP(session.getAttribute("mobile_number").toString(), OTP.RandomOTP(), "")));
+}
+if("reenter_mobile_number".equals(request.getParameter("otp_form")))
+{
+	session.setAttribute("mobile_number",null);
+	session.setAttribute("otp",null);
+}
+if("confirm_otp".equals(request.getParameter("otp_form"))&&((session.getAttribute("otp")).toString()).equals(request.getParameter("input_otp")))
+{
+	session.setAttribute("mobile_number",null);
+	session.setAttribute("otp",null);
+
+	%>
+	<jsp:forward page="welcome.jsp"></jsp:forward>
+	<%
+}
+
+%>
 body {
 	background: url('img/bg-01.jpg') no-repeat;
 	background-size: cover;
@@ -23,48 +50,13 @@ body {
 </style>
 </head>
 <body>
-	<%
-	if("send".equals(request.getParameter("forget_password")))
-	{	int otp=request.getParameter("generated_otp")!=null?Integer.parseInt(request.getParameter("generated_otp")):OTP.MessageOTP(request.getParameter("mobile_number"), OTP.RandomOTP()," ");
-		
-		if(request.getParameter("input_otp")!=null&&request.getParameter("generated_otp").equals(request.getParameter("input_otp")))
-		{
-			System.out.println("entered right otp");
-		}
-		else if(request.getParameter("input_otp")!=null)
-		{
-			System.out.println("entered wrong otp");
-		%>
-		entered wrong otp
-		<%
-		}
-		%>
-		
-	
-		<div class="login-wrap">
-		<div class="login-html">
-			<div class="login-form">
-				<input id="tab-1" type="radio" name="tab" class="sign-in" checked>
-				<label for="tab-1" class="tab">OTP</label>
-				<form action="forget_password_OTP.jsp" method="post">
-					<div class="group">
-						<label for="user" class="label">OTP</label> 
-						<input id="user" name="input_otp" type="text" class="input">
-					</div>
-					<div class="group">
-						<input type="hidden" name="generated_otp" value=<%=otp%>>
-						<input type="submit" name="forget_password" class="button" value="send">
-					</div>
-				</form>
-			</div>
-		</div>
-	</div>
-	<%	
-	}
-	else
-	{
-		
-	%>
+
+<%=session.getAttribute("mobile_number") %><br>
+<%=session.getAttribute("otp") %>
+<%
+if(session.getAttribute("OTP")==null&&session.getAttribute("mobile_number")==null){
+%>
+
 	<div class="login-wrap">
 		<div class="login-html">
 			<div class="login-form">
@@ -82,8 +74,35 @@ body {
 			</div>
 		</div>
 	</div>
-	<%
-	}
-	%>
+
+<%}else{
+ %>
+
+
+		<div class="login-wrap">
+		<div class="login-html">
+			<div class="login-form">
+				<input id="tab-1" type="radio" name="tab" class="sign-in" checked>
+				<label for="tab-1" class="tab">OTP</label>
+				<form action="forget_password_OTP.jsp" method="post">
+					<div class="group">
+						<label for="user" class="label">OTP</label> 
+						<input id="user" name="input_otp" type="text" class="input">
+					</div>
+					<div class="group">
+						<input type="submit" name="otp_form" class="button" value="confirm_otp">
+					</div>
+					<div class="group">
+						<input type="submit" name="otp_form" class="button" value="reenter_mobile_number">
+					</div>
+					<div class="group">
+						<input type="submit" name="otp_form" class="button" value="resend_otp">
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+<%} %>
+
 </body>
 </html>
