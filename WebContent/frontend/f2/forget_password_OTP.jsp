@@ -12,21 +12,20 @@
 <title>Forget Password</title>
 <link rel="stylesheet" href="css/form.css">
 <style>
-
-
-
 <%
 if(request.getMethod().equalsIgnoreCase("post")){
 	if("send".equals(request.getParameter("forget_password"))&&session.getAttribute("otp")==null)
 	{
-	   
-		session.setAttribute("mobile_number",request.getParameter("mobile_number"));
+	   	session.setAttribute("mobile_number",request.getParameter("mobile_number"));
 		session.setAttribute("otp",(OTP.MessageOTP(request.getParameter("mobile_number"), OTP.RandomOTP(), "")));
 	}
-	if("resend_otp".equals(request.getParameter("otp_form")))
-	{
-	
-		session.setAttribute("otp",(OTP.MessageOTP(session.getAttribute("mobile_number").toString(), OTP.RandomOTP(), "")));
+	try{
+		if("resend_otp".equals(request.getParameter("otp_form")))
+		{
+			session.setAttribute("otp",(OTP.MessageOTP(session.getAttribute("mobile_number").toString(), OTP.RandomOTP(), "")));
+		}
+	}catch(Exception e){
+		
 	}
 	if("reenter_mobile_number".equals(request.getParameter("otp_form")))
 	{
@@ -36,8 +35,11 @@ if(request.getMethod().equalsIgnoreCase("post")){
 	try{
 		if("confirm_otp".equals(request.getParameter("otp_form"))&&((session.getAttribute("otp")).toString()).equals(request.getParameter("input_otp")))
 		{
-			
+			//put here codes for change password
 		}
+	}catch(Exception e)
+	{
+		System.out.println("+++Exception at forget_password_otp ->confirm_otp"+e);
 	}
 }
 %>

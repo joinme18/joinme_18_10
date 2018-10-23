@@ -179,7 +179,7 @@ public class UserDAO {
 		}
 	}
 
-	public UserDTO getStudent(int user_id) {
+	public UserDTO getUser(int user_id) {
 		UserDTO dto = null;
 		boolean flag = false;
 		if (conn == null) {
@@ -222,6 +222,64 @@ public class UserDAO {
 		}
 	}
 
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	public int getUserID(String unique_id) {
+		int user_id=-1;
+		boolean flag = false;
+		if (conn == null) {
+			conn = JoinMeDB.getConnection();
+		}
+		try {
+
+			String query = "select user_id from user where unique_id=?";
+			ps = conn.prepareStatement(query);
+			ps.setString(1, unique_id);
+			rs = ps.executeQuery();
+
+			if (rs.next()) {
+				user_id=rs.getInt("user_id");
+			}
+
+		} catch (Exception e) {
+			System.out.println("+++exception at get student" + e);
+		} finally {
+			ps = null;
+			conn = null;
+			rs = null;
+			return user_id;
+		}
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	public boolean moblieNumberExist(String mobile_number) {
 		boolean flag = false;
 		if (conn == null) {
