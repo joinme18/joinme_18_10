@@ -16,32 +16,30 @@
 
 
 <%
-if("send".equals(request.getParameter("forget_password"))&&session.getAttribute("otp")==null)
-{
-   
-	session.setAttribute("mobile_number",request.getParameter("mobile_number"));
-	session.setAttribute("otp",(OTP.MessageOTP(request.getParameter("mobile_number"), OTP.RandomOTP(), "")));
+if(request.getMethod().equalsIgnoreCase("post")){
+	if("send".equals(request.getParameter("forget_password"))&&session.getAttribute("otp")==null)
+	{
+	   
+		session.setAttribute("mobile_number",request.getParameter("mobile_number"));
+		session.setAttribute("otp",(OTP.MessageOTP(request.getParameter("mobile_number"), OTP.RandomOTP(), "")));
+	}
+	if("resend_otp".equals(request.getParameter("otp_form")))
+	{
+	
+		session.setAttribute("otp",(OTP.MessageOTP(session.getAttribute("mobile_number").toString(), OTP.RandomOTP(), "")));
+	}
+	if("reenter_mobile_number".equals(request.getParameter("otp_form")))
+	{
+		session.setAttribute("mobile_number",null);
+		session.setAttribute("otp",null);
+	}
+	try{
+		if("confirm_otp".equals(request.getParameter("otp_form"))&&((session.getAttribute("otp")).toString()).equals(request.getParameter("input_otp")))
+		{
+			
+		}
+	}
 }
-if("resend_otp".equals(request.getParameter("otp_form")))
-{
-
-	session.setAttribute("otp",(OTP.MessageOTP(session.getAttribute("mobile_number").toString(), OTP.RandomOTP(), "")));
-}
-if("reenter_mobile_number".equals(request.getParameter("otp_form")))
-{
-	session.setAttribute("mobile_number",null);
-	session.setAttribute("otp",null);
-}
-if("confirm_otp".equals(request.getParameter("otp_form"))&&((session.getAttribute("otp")).toString()).equals(request.getParameter("input_otp")))
-{
-	session.setAttribute("mobile_number",null);
-	session.setAttribute("otp",null);
-
-	%>
-	<jsp:forward page="welcome.jsp"></jsp:forward>
-	<%
-}
-
 %>
 body {
 	background: url('img/bg-01.jpg') no-repeat;
