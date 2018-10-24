@@ -36,7 +36,7 @@ public class UserDAO {
 			ps.setString(10, dto.getLocation());
 			ps.setString(11, dto.getAbout());
 			// ps.setString(12, dto.getCreated_datetime());
-			ps.setString(12, encryption_decryption.encrypt(dto.getPassword()));
+			ps.setString(12, /*encryption_decryption.encrypt(*/dto.getPassword()/*)*/);/////////////////////need to remove comment
 
 			if (ps.executeUpdate() > 0) {
 				flag = true;
@@ -63,7 +63,8 @@ public class UserDAO {
 			rs = ps.executeQuery();
 			if (rs.next()) {
 				
-				if (encryption_decryption.encrypt(password).equals(rs.getString("password"))) {
+				if (/*encryption_decryption.encrypt(*/password/*)*/.equals(rs.getString("password")))/////////////////////need to remove comment 
+				{
 					flag = true;
 				}
 			}
@@ -221,17 +222,6 @@ public class UserDAO {
 			return dto;
 		}
 	}
-
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 	
 	public int getUserID(String unique_id) {
 		int user_id=-1;
@@ -259,26 +249,6 @@ public class UserDAO {
 			return user_id;
 		}
 	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 	
 	public boolean moblieNumberExist(String mobile_number) {
 		boolean flag = false;
@@ -330,4 +300,27 @@ public class UserDAO {
 		}
 	}
 	
+	public boolean changePassword(String mobile_number,String new_password) {
+		boolean flag = false;
+		if (conn == null) {
+			conn = JoinMeDB.getConnection();
+		}
+		try {
+				String query="update user set password=? where mobile_number=?";
+				ps=conn.prepareStatement(query);
+				ps.setString(1, new_password);
+				ps.setString(2, mobile_number);
+				if(ps.executeUpdate()>0) {
+					flag = true;
+				}
+
+		} catch (Exception e) {
+			System.out.println("+++exception at changePassword" + e);
+		} finally {
+			ps = null;
+			conn = null;
+			return flag;
+		}
+	}
+
 }

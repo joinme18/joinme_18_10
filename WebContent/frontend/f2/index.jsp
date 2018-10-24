@@ -18,7 +18,9 @@ if("sign_in".equals(request.getParameter("submit"))&&request.getMethod().equalsI
 {
 	if (new UserDAO().checkUserPassword(request.getParameter("unique_id"),request.getParameter("password"))) 
 	{
-		session.setAttribute("user_id", new UserDAO().getUserID("swati"));
+		message="welcome.jsp";
+		System.out.print(message);
+		session.setAttribute("user_id", new UserDAO().getUserID(request.getParameter("unique_id")));
 		String first_name=(new UserDAO().getUser((int)session.getAttribute("user_id"))).getFirst_name();
 		session.setAttribute("first_name", first_name);
 		%>
@@ -32,24 +34,30 @@ if("sign_in".equals(request.getParameter("submit"))&&request.getMethod().equalsI
 }
 if("sign_up".equals(request.getParameter("submit"))&&request.getMethod().equalsIgnoreCase("post"))
 {
+
 	UserDAO dao = new UserDAO();
 	if (!dao.uniqueIDExist(request.getParameter("unique_id"))&& !dao.moblieNumberExist(request.getParameter("mobile_number")) ) 
 	{
+		message="mobile number and user id is not exist";
+		System.out.print(message);
 		try{
 			if(((String)session.getAttribute("mobile_number")).equals(request.getParameter("mobile_number")))
 			{
+				message="otp set to null for new number";
 				session.setAttribute("otp",null);
 			}
 		}catch(Exception e)
 		{
 			
 		}
-		
+		session.setAttribute("mobile_number", request.getParameter("mobile_number"));
 		RequestDispatcher rd = request.getRequestDispatcher("sign_up_OTP.jsp");
 		rd.forward(request, response);
+		
 	} 
 	else 
 	{
+		checked="checked";
 		if (dao.uniqueIDExist(request.getParameter("unique_id"))) 
 		{
 		message="username already exist";
@@ -62,6 +70,12 @@ if("sign_up".equals(request.getParameter("submit"))&&request.getMethod().equalsI
 }
 %>
 
+
+<%=session.getAttribute("mobile_number") %><br>
+<%=session.getAttribute("otp") %><br>
+<%=session.getAttribute("user_id") %><br>
+<%=session.getAttribute("first_name") %><br>
+<%=message%><br>
 
 
 

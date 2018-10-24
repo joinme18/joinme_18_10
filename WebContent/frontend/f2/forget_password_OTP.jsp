@@ -12,17 +12,29 @@
 <title>Forget Password</title>
 <link rel="stylesheet" href="css/form.css">
 <style>
+<%!
+String message="";
+%>
 <%
 if(request.getMethod().equalsIgnoreCase("post")){
-	if("send".equals(request.getParameter("forget_password"))&&session.getAttribute("otp")==null)
+	try
 	{
-	   	session.setAttribute("mobile_number",request.getParameter("mobile_number"));
-		session.setAttribute("otp",(OTP.MessageOTP(request.getParameter("mobile_number"), OTP.RandomOTP(), "")));
+		if("send".equals(request.getParameter("forget_password"))&&session.getAttribute("otp")==null)
+		{
+		   	session.setAttribute("mobile_number",request.getParameter("mobile_number"));
+			session.setAttribute("otp",/*(OTP.MessageOTP(request.getParameter("mobile_number"), */OTP.RandomOTP()/*, ""))*/);
+			System.out.println(session.getAttribute("otp"));
+		}
+	}catch(Exception e)
+	{
+		message="unable to send otp";
+		System.out.println(message);
 	}
 	try{
-		if("resend_otp".equals(request.getParameter("otp_form")))
+		if("resend_otp".equals(request.getParameter("otp_form"))/*&&session.getAttribute("otp")==null*timer will make otp null*/)
 		{
-			session.setAttribute("otp",(OTP.MessageOTP(session.getAttribute("mobile_number").toString(), OTP.RandomOTP(), "")));
+			session.setAttribute("otp",/*(OTP.MessageOTP(session.getAttribute("mobile_number").toString(), */OTP.RandomOTP()/*, ""))*/);
+			System.out.println(session.getAttribute("otp"));
 		}
 	}catch(Exception e){
 		
@@ -35,11 +47,17 @@ if(request.getMethod().equalsIgnoreCase("post")){
 	try{
 		if("confirm_otp".equals(request.getParameter("otp_form"))&&((session.getAttribute("otp")).toString()).equals(request.getParameter("input_otp")))
 		{
-			//put here codes for change password
+
+			session.setAttribute("mobile_number", null);
+			RequestDispatcher rd = request.getRequestDispatcher("change_password.jsp");
+			rd.forward(request, response);
+			
 		}
+
 	}catch(Exception e)
 	{
-		System.out.println("+++Exception at forget_password_otp ->confirm_otp"+e);
+		message="mismatch otp";
+		System.out.println(message);
 	}
 }
 %>
@@ -52,7 +70,11 @@ body {
 <body>
 
 <%=session.getAttribute("mobile_number") %><br>
-<%=session.getAttribute("otp") %>
+<%=session.getAttribute("otp") %><br>
+<%=session.getAttribute("user_id") %><br>
+<%=session.getAttribute("first_name") %><br>
+
+
 <%
 if(session.getAttribute("OTP")==null&&session.getAttribute("mobile_number")==null){
 %>
@@ -75,7 +97,7 @@ if(session.getAttribute("OTP")==null&&session.getAttribute("mobile_number")==nul
 		</div>
 	</div>
 
-<%}else{
+<%}else if(session.getAttribute("otp")!=null){
  %>
 
 
@@ -90,6 +112,7 @@ if(session.getAttribute("OTP")==null&&session.getAttribute("mobile_number")==nul
 						<input id="user" name="input_otp" type="text" class="input">
 					</div>
 					<div class="group">
+					<input type="hidden" name="mobile_number" value=<%=session.getAttribute("mobile_number") %>>
 						<input type="submit" name="otp_form" class="button" value="confirm_otp">
 					</div>
 					<div class="group">
@@ -102,7 +125,12 @@ if(session.getAttribute("OTP")==null&&session.getAttribute("mobile_number")==nul
 			</div>
 		</div>
 	</div>
-<%} %>
+<%}
+else
+{
+	session.setAttribute("otp", null);
+	session.setAttribute("mobile_number", null);
+} %>
 
 </body>
 </html>
