@@ -3,7 +3,7 @@
 <title>W3.CSS Template</title>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet" href="css/w3.css">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <link href="https://fonts.googleapis.com/css?family=Acme" rel="stylesheet">
@@ -26,7 +26,7 @@ html,body,h1,h2,h3,h4,h5 {font-family: 'Acme', sans-serif;}
 
 <!-- Top container -->
 <div class="w3-bar w3-top w3-black w3-large bg-dark" style="z-index:4">
-  <button class="w3-bar-item w3-button w3-hide-large w3-hover-none w3-hover-text-light-grey" onclick="w3_open();"><i class="fa fa-bars"></i> Menu</button>
+  <button class="w3-bar-item w3-button w3-hide-large w3-hover-none w3-hover-text-light-grey" onclick="w3_open();"><i class="fa fa-bars"></i>  Menu</button>
   <span class="w3-bar-item w3-right"><img class="w3-circle" src="img/joinme.jpg" style="width:50px;">JOIN ME!</span>
 </div>
 
@@ -51,12 +51,11 @@ html,body,h1,h2,h3,h4,h5 {font-family: 'Acme', sans-serif;}
   <div class="w3-bar-block ">
     <a href="#" class="w3-bar-item w3-button w3-padding-16 w3-hide-large w3-dark-grey w3-hover-black" onclick="w3_close()" title="close menu"><i class="fas fa-user-alt"></i>Close Menu</a>
     <a href="home.jsp" class="w3-bar-item w3-button w3-padding"><i class="fa fa-users fa-fw"></i>Home</a>
-    <a href="my_activities.jsp" class="w3-bar-item w3-button w3-padding w3-blue"><i class="fa fa-user fa-fw"></i> My Activities</a>
-    <a href="selected_activities.jsp" class="w3-bar-item w3-button w3-padding"><i class="fa fa-eye fa-fw"></i>Selected Activities</a>
+    <a href="my_activities.jsp" class="w3-bar-item w3-button w3-padding  "><i class="fa fa-user fa-fw"></i> My Activities</a>
+    <a href="selected_activities.jsp" class="w3-bar-item w3-button w3-padding w3-blue"><i class="fa fa-eye fa-fw"></i>Selected Activities</a>
     <a href="search_activities.jsp" class="w3-bar-item w3-button w3-padding"><i class="fa fa-search fa-fw"></i>Search Activities</a>
     <a href="contacts.jsp" class="w3-bar-item w3-button w3-padding"><i class="fa fa-users fa-fw"></i>My Contacts</a>
     <a href="logout.jsp" class="w3-bar-item w3-button w3-padding"><i class="fa fa-users fa-fw"></i>Logout</a>
-
   </div>
 </nav>
 
@@ -77,7 +76,7 @@ html,body,h1,h2,h3,h4,h5 {font-family: 'Acme', sans-serif;}
             <div class="col">
               <div class="info-header mb-5">
                 <h1 class="text-primary mt-5 pb-3">
-                  My Activities
+                  Selected Activities
                 </h1>
                 <p class="lead pb-3">
                   Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet omnis fuga maiores excepturi dolores explicabo.
@@ -86,8 +85,20 @@ html,body,h1,h2,h3,h4,h5 {font-family: 'Acme', sans-serif;}
             </div>
           </div>
           <div class="row">
-            <div class="col-lg-3 col-md-6">
+
+
+
+
+
+
+
+
+
+
+            
+              <div class="col-lg-3 col-md-6">
               <div class="card">
+                <form>
                 <div class="card-body">
                   <img src="img/person1.jpg" alt="" class="img-fluid rounded-circle w-50 mb-3">
                   <h3>SPORTS</h3>
@@ -95,21 +106,22 @@ html,body,h1,h2,h3,h4,h5 {font-family: 'Acme', sans-serif;}
                   <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Recusandae molestiae alias expedita quae esse ut.</p>
                   <div class="d-flex flex-row justify-content-center">
                     <div class="p-4">
-
-                    </div>
-                    <div class="p-4">
-
-                    </div>
-                    <div class="p-4">
-
+                      <input type="submit" class="btn btn-dark" value="add activity">
                     </div>
                   </div>
                 </div>
+                </form>
               </div>
             </div>
+          
 
-            <div class="col-lg-3 col-md-6">
+
+
+
+            
+              <div class="col-lg-3 col-md-6">
               <div class="card">
+                <form>
                 <div class="card-body">
                   <img src="img/person1.jpg" alt="" class="img-fluid rounded-circle w-50 mb-3">
                   <h3>SPORTS</h3>
@@ -117,18 +129,41 @@ html,body,h1,h2,h3,h4,h5 {font-family: 'Acme', sans-serif;}
                   <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Recusandae molestiae alias expedita quae esse ut.</p>
                   <div class="d-flex flex-row justify-content-center">
                     <div class="p-4">
-
-                    </div>
-                    <div class="p-4">
-
-                    </div>
-                    <div class="p-4">
-
+                      <input type="submit" class="btn btn-dark" value="add activity">
                     </div>
                   </div>
                 </div>
+                </form>
               </div>
             </div>
+          
+
+            
+              <div class="col-lg-3 col-md-6">
+              <div class="card">
+                <form>
+                <div class="card-body">
+                  <img src="img/person1.jpg" alt="" class="img-fluid rounded-circle w-50 mb-3">
+                  <h3>SPORTS</h3>
+                  <h5 class="text-muted"></h5>
+                  <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Recusandae molestiae alias expedita quae esse ut.</p>
+                  <div class="d-flex flex-row justify-content-center">
+                    <div class="p-4">
+                      <input type="submit" class="btn btn-dark" value="add activity">
+                    </div>
+                  </div>
+                </div>
+                </form>
+              </div>
+            </div>
+          
+
+
+
+
+
+
+
 
 
 
@@ -143,13 +178,7 @@ html,body,h1,h2,h3,h4,h5 {font-family: 'Acme', sans-serif;}
                   <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Recusandae molestiae alias expedita quae esse ut.</p>
                   <div class="d-flex flex-row justify-content-center">
                     <div class="p-4">
-
-                    </div>
-                    <div class="p-4">
-
-                    </div>
-                    <div class="p-4">
-
+                      <a href="#" class="btn btn-dark">Select Activity</a>
                     </div>
                   </div>
                 </div>
@@ -163,15 +192,12 @@ html,body,h1,h2,h3,h4,h5 {font-family: 'Acme', sans-serif;}
                   <h5 class="text-muted"></h5>
                   <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Recusandae molestiae alias expedita quae esse ut.</p>
                   <div class="d-flex flex-row justify-content-center">
-                    <div class="p-4">
 
-                    </div>
-                    <div class="p-4">
+                      <div class="p-4">
+                        <a href="#" class="btn btn-dark">Select Activity</a>
+                      </div>
 
-                    </div>
-                    <div class="p-4">
 
-                    </div>
                   </div>
                 </div>
               </div>
@@ -185,14 +211,9 @@ html,body,h1,h2,h3,h4,h5 {font-family: 'Acme', sans-serif;}
                   <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Recusandae molestiae alias expedita quae esse ut.</p>
                   <div class="d-flex flex-row justify-content-center">
                     <div class="p-4">
-
+                      <a href="#" class="btn btn-dark">Select Activity</a>
                     </div>
-                    <div class="p-4">
 
-                    </div>
-                    <div class="p-4">
-
-                    </div>
                   </div>
                 </div>
               </div>
@@ -238,11 +259,7 @@ html,body,h1,h2,h3,h4,h5 {font-family: 'Acme', sans-serif;}
     </div> -->
 
 
-<!-- ADD ACTIVITY BUTTONS -->
-<div class="text-center">
-<a class="btn btn-primary btn-lg text-light" href="add_new_activity.jsp" role="button">ADD Activity</a>
-</div>
-<!-- ADD ACTIVITY BUTTONS ENDS-->
+
 
   <!-- Footer -->
   <footer class="w3-container w3-padding-16 w3-light-grey">

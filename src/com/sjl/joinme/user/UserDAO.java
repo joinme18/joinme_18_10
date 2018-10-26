@@ -124,7 +124,7 @@ public class UserDAO {
 				flag = true;
 			}
 		} catch (Exception e) {
-			System.out.println("+++exception at delete student" + e);
+			System.out.println("+++exception at delete user" + e);
 		} finally {
 			ps = null;
 			conn = null;
@@ -168,7 +168,7 @@ public class UserDAO {
 
 			}
 		} catch (Exception e) {
-			System.out.println("+++exception at get all student" + e);
+			System.out.println("+++exception at get all user" + e);
 		} finally {
 			if (list.isEmpty()) {
 				return null;
@@ -207,13 +207,13 @@ public class UserDAO {
 				dto.setGender(rs.getString("gender").charAt(0));
 				dto.setLast_name(rs.getString("last_name"));
 				dto.setLocation(rs.getString("location"));
-				dto.setPassword(encryption_decryption.decrypt(rs.getString("password")));
+				dto.setPassword(/*encryption_decryption.decrypt(*/rs.getString("password")/*)*/);
 				dto.setUnique_id(rs.getString("unique_id"));
 
 			}
 
 		} catch (Exception e) {
-			System.out.println("+++exception at get student" + e);
+			System.out.println("+++exception at getUser: " + e);
 		} finally {
 
 			ps = null;

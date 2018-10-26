@@ -60,12 +60,13 @@ html,body,h1,h2,h3,h4,h5 {font-family: 'Acme', sans-serif;}
 
   <div class="w3-bar-block ">
     <a href="#" class="w3-bar-item w3-button w3-padding-16 w3-hide-large w3-dark-grey w3-hover-black" onclick="w3_close()" title="close menu"><i class="fas fa-user-alt"></i>  Close Menu</a>
-    <a href="home.jsp" class="w3-bar-item w3-button w3-padding"><i class="fa fa-users fa-fw"></i>  Home</a>
-    <a href="index.jsp" class="w3-bar-item w3-button w3-padding  "><i class="fa fa-user fa-fw"></i>  My Activities</a>
-    <a href="selectedjsp" class="w3-bar-item w3-button w3-padding w3-blue"><i class="fa fa-eye fa-fw"></i>  Selected Activities</a>
-    <a href="search.jsp" class="w3-bar-item w3-button w3-padding"><i class="fa fa-search fa-fw"></i>  Search Activities</a>
-    <a href="contacts.jsp" class="w3-bar-item w3-button w3-padding"><i class="fa fa-users fa-fw"></i>  My Contacts</a>
-    <a href="logout.jsp" class="w3-bar-item w3-button w3-padding"><i class="fa fa-users fa-fw"></i>  Logout</a>
+    <a href="#" class="w3-bar-item w3-button w3-padding-16 w3-hide-large w3-dark-grey w3-hover-black" onclick="w3_close()" title="close menu"><i class="fas fa-user-alt"></i>Close Menu</a>
+    <a href="home.jsp" class="w3-bar-item w3-button w3-padding"><i class="fa fa-users fa-fw"></i>Home</a>
+    <a href="my_activities.jsp" class="w3-bar-item w3-button w3-padding  "><i class="fa fa-user fa-fw"></i> My Activities</a>
+    <a href="selected_activities.jsp" class="w3-bar-item w3-button w3-padding"><i class="fa fa-eye fa-fw"></i>Selected Activities</a>
+    <a href="search_activities.jsp" class="w3-bar-item w3-button w3-padding w3-blue"><i class="fa fa-search fa-fw"></i>Search Activities</a>
+    <a href="contacts.jsp" class="w3-bar-item w3-button w3-padding"><i class="fa fa-users fa-fw"></i>My Contacts</a>
+    <a href="logout.jsp" class="w3-bar-item w3-button w3-padding"><i class="fa fa-users fa-fw"></i>Logout</a>
 
   </div>
 </nav>

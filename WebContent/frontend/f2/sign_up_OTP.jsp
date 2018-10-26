@@ -55,7 +55,7 @@ if(request.getMethod().equalsIgnoreCase("post"))
 		session.setAttribute("mobile_number", null);
 		session.setAttribute("otp", null);
 		%>
-		<jsp:forward page="my_activities.jsp"></jsp:forward>
+		<jsp:forward page="home.jsp"></jsp:forward>
 		<%
 		}
 		else

@@ -11,7 +11,7 @@ if("checked".equals(request.getParameter("sign_up_checked"))){
 if(session.getAttribute("user_id")!=null)
 {
 	%>
-	<jsp:forward page="my_activities.jsp"></jsp:forward>
+	<jsp:forward page="home.jsp"></jsp:forward>
 	<%
 }
 if("sign_in".equals(request.getParameter("submit"))&&request.getMethod().equalsIgnoreCase("post"))
@@ -24,7 +24,7 @@ if("sign_in".equals(request.getParameter("submit"))&&request.getMethod().equalsI
 		String first_name=(new UserDAO().getUser((int)session.getAttribute("user_id"))).getFirst_name();
 		session.setAttribute("first_name", first_name);
 		%>
-		<jsp:forward page="my_activities.jsp"></jsp:forward>
+		<jsp:forward page="home.jsp"></jsp:forward>
 		<%
 	} 
 	else  

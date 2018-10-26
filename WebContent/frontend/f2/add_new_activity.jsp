@@ -49,7 +49,7 @@
         <span class="navbar-toggler-icon"></span>
       </button>
 
-      <a href="index.html" class="w3-bar-item w3-right navbar-brand"><img class="w3-circle" src="img/joinme.jpg" style="width:50px;margin-right:5px;">JOIN ME!</a>
+      <a href="index.html" class="w3-bar-item w3-right navbar-brand"><img class="w3-circle" src="joinme.jpg" style="width:50px;margin-right:5px;">JOIN ME!</a>
 
     </div>
   </nav>
@@ -77,6 +77,7 @@
                     <input type="text" class="form-control form-control-lg" placeholder="Name(title)">
                   </div>
                   <div class="form-group">
+
                     <textarea type="text" class="form-control form-control-lg" placeholder="Description">Description of the event
                     </textarea>
                   </div>
@@ -85,6 +86,8 @@
                       HEre GOES THE MAPPSS
                     </map>
                   </div>
+
+
                   <input type="submit" class="btn btn-outline-light btn-block">
                   </form>
                 </div>
