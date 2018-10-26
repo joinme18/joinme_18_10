@@ -21,10 +21,10 @@ public class TagsDAO {
 			if (conn == null) {
 				conn = JoinMeDB.getConnection();
 			}
-			String query = "insert into tags(tag, description) values(?,?)";
+			String query = "insert into tags(tag, tag_description) values(?,?)";
 			ps = conn.prepareStatement(query);
 			ps.setString(1, dto.getTag());
-			ps.setString(2, dto.getDescription());
+			ps.setString(2, dto.getTag_description());
 			if (ps.executeUpdate() > 0) {
 				flag = true;
 			}
@@ -37,16 +37,55 @@ public class TagsDAO {
 		}
 	}
 
+	
+	
+	
+	
+	
+	
+	
+
+
+
+	public int tagNameToTagID(String tag)
+	{
+		int flag = -1;
+		try {
+			if (conn == null) {
+				conn = JoinMeDB.getConnection();
+			}
+			String query = "select tag_id from tags where tag='"+tag+"'";
+			ps = conn.prepareStatement(query);
+	
+			rs = ps.executeQuery();
+			if (rs.next()) {
+				flag=rs.getInt("tag_id");
+			}
+		} catch (Exception e) {
+			System.out.println("+++Exception in tagNameToTagID:" + e);
+		} finally {
+			ps = null;
+			conn = null;
+			return flag;
+		}
+	}
+
+	
+	
+	
+	
+	
+	
 	public boolean updateTags(TagsDTO dto) {
 		boolean flag = false;
 		try {
 			if (conn == null) {
 				conn = JoinMeDB.getConnection();
 			}
-			String query = "update tags set tag=?, description=? where tag_id=" + dto.getTag_id();
+			String query = "update tags set tag=?, tag_description=? where tag_id=" + dto.getTag_id();
 			ps = conn.prepareStatement(query);
 			ps.setString(1, dto.getTag());
-			ps.setString(2, dto.getDescription());
+			ps.setString(2, dto.getTag_description());
 			if (ps.executeUpdate() > 0) {
 				flag = true;
 			}

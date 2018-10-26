@@ -5,7 +5,15 @@ import java.io.Serializable;
 public class TagsDTO implements Serializable{
 	
 	private int tag_id;
-	private String tag, description, created_datetime;
+	private String tag, tag_description, created_datetime;
+
+	public String getTag_description() {
+		return tag_description;
+	}
+
+	public void setTag_description(String tag_description) {
+		this.tag_description = tag_description;
+	}
 
 	public TagsDTO() {
 	}
@@ -26,13 +34,6 @@ public class TagsDTO implements Serializable{
 		this.tag = tag;
 	}
 
-	public String getDescription() {
-		return description;
-	}
-
-	public void setDescription(String description) {
-		this.description = description;
-	}
 
 	public String getCreated_datetime() {
 		return created_datetime;

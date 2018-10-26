@@ -2,7 +2,7 @@
 <html>
 <title>W3.CSS Template</title>
 <%
-if(session.getAttribute("first_name")==null&&session.getAttribute("user_id")==null)
+if(false&&session.getAttribute("first_name")==null&&session.getAttribute("user_id")==null)
 {
 	%>
 	<jsp:forward page="index.jsp"></jsp:forward>
@@ -53,9 +53,6 @@ html,body,h1,h2,h3,h4,h5 {font-family: 'Acme', sans-serif;}
     </div>
   </div>
   <hr>
-  <div class="w3-container">
-    <h5 class="mb-3">Dashboard</h5>
-  </div>
 
   <div class="w3-bar-block ">
     <a href="#" class="w3-bar-item w3-button w3-padding-16 w3-hide-large w3-dark-grey w3-hover-black" onclick="w3_close()" title="close menu"><i class="fas fa-user-alt"></i>Close Menu</a>

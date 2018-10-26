@@ -1,10 +1,24 @@
 package com.sjl.joinme.created_activity_list;
 
-import java.io.Serializable;
-
-public class CreatedActivityListDTO implements Serializable{
+public class CreatedActivityListDTO {
 	private int activity_id, tag_id, user_id, cost;
-	private String activity_name, description, created_datetime, activity_date;
+	private String activity_name, activity_description, created_datetime, activity_date,lat,lng;
+	public String getLat() {
+		return lat;
+	}
+
+	public void setLat(String lat) {
+		this.lat = lat;
+	}
+
+	public String getLng() {
+		return lng;
+	}
+
+	public void setLng(String lng) {
+		this.lng = lng;
+	}
+
 	private char status;
 	
 	public CreatedActivityListDTO() {
@@ -42,12 +56,13 @@ public class CreatedActivityListDTO implements Serializable{
 		this.activity_name = activity_name;
 	}
 
-	public String getDescription() {
-		return description;
+
+	public String getActivity_description() {
+		return activity_description;
 	}
 
-	public void setDescription(String description) {
-		this.description = description;
+	public void setActivity_description(String activity_description) {
+		this.activity_description = activity_description;
 	}
 
 	public String getCreated_datetime() {

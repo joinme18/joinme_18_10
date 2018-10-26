@@ -7,6 +7,18 @@ import java.util.ArrayList;
 
 import com.sjl.joinme.database.JoinMeDB;
 
+
+
+
+
+
+
+
+
+
+
+
+
 public class CreatedActivityListDAO {
 	private Connection conn = null;
 	private PreparedStatement ps = null;
@@ -19,15 +31,17 @@ public class CreatedActivityListDAO {
 				conn = JoinMeDB.getConnection();
 			}
 			String query = "insert into created_activity_list(tag_id, user_id,"
-					+ " cost, activity_name, description, activity_date, status)" + " values(?,?,?,?,?,?,?)";
+					+ " cost, activity_name, activity_description, activity_date, status,lat,lng)" + " values(?,?,?,?,?,?,?,?,?)";
 			ps = conn.prepareStatement(query);
 			ps.setInt(1, dto.getTag_id());
 			ps.setInt(2, dto.getUser_id());
 			ps.setInt(3, dto.getCost());
 			ps.setString(4, dto.getActivity_name());
-			ps.setString(5, dto.getDescription());
+			ps.setString(5, dto.getActivity_description());
 			ps.setString(6, dto.getActivity_date());
 			ps.setString(7, "" + dto.getStatus());
+			ps.setString(8,dto.getLat());
+			ps.setString(9,dto.getLng());
 			if (ps.executeUpdate() > 0) {
 				flag = true;
 			}
@@ -40,6 +54,23 @@ public class CreatedActivityListDAO {
 		}
 	}
 
+	
+	
+	
+	
+	
+
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	public boolean updateCreatedActivityList(CreatedActivityListDTO dto) {
 		boolean flag = false;
 		try {
@@ -47,13 +78,13 @@ public class CreatedActivityListDAO {
 				conn = JoinMeDB.getConnection();
 			}
 			String query = "update created_activity_list set tag_id=?, user_id=?,cost=?,"
-					+ " activity_name=?, description=?, activity_date=?, status=? where tag_id=" + dto.getActivity_id();
+					+ " activity_name=?, activity_description=?, activity_date=?, status=? where tag_id=" + dto.getActivity_id();
 			ps = conn.prepareStatement(query);
 			ps.setInt(1, dto.getTag_id());
 			ps.setInt(2, dto.getUser_id());
 			ps.setInt(3, dto.getCost());
 			ps.setString(4, dto.getActivity_name());
-			ps.setString(5, dto.getDescription());
+			ps.setString(5, dto.getActivity_description());
 			ps.setString(6, dto.getActivity_date());
 			ps.setString(7, "" + dto.getStatus());
 			if (ps.executeUpdate() > 0) {
@@ -104,7 +135,7 @@ public class CreatedActivityListDAO {
 				dto.setActivity_name(rs.getString("activity_name"));
 				dto.setCost(rs.getInt("cost"));
 				dto.setCreated_datetime(rs.getString("created_datetime"));
-				dto.setDescription(rs.getString("description"));
+				dto.setActivity_description(rs.getString("getActivity_description"));
 				dto.setStatus(rs.getString("status").charAt(0));
 				dto.setTag_id(rs.getInt("tag_id"));
 				dto.setUser_id(rs.getInt("user_id"));
@@ -136,7 +167,7 @@ public class CreatedActivityListDAO {
 				dto.setActivity_name(rs.getString("activity_name"));
 				dto.setCost(rs.getInt("cost"));
 				dto.setCreated_datetime(rs.getString("created_datetime"));
-				dto.setDescription(rs.getString("description"));
+				dto.setActivity_description(rs.getString("getActivity_description"));
 				dto.setStatus(rs.getString("status").charAt(0));
 				dto.setTag_id(rs.getInt("tag_id"));
 				dto.setUser_id(rs.getInt("user_id"));
