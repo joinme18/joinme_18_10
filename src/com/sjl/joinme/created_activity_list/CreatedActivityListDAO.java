@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
 
 import com.sjl.joinme.database.JoinMeDB;
 
@@ -12,7 +13,7 @@ public class CreatedActivityListDAO {
 	private PreparedStatement ps = null;
 	private ResultSet rs = null;
 
-	public boolean addCreatedActivityList(CreatedActivityListDTO dto) {
+	public boolean addNewActivity(CreatedActivityListDTO dto) {
 		boolean flag = false;
 		try {
 			if (conn == null) {
@@ -32,7 +33,7 @@ public class CreatedActivityListDAO {
 				flag = true;
 			}
 		} catch (Exception e) {
-			System.out.println("+++Exception in addCreatedActivityList:" + e);
+			System.out.println("+++Exception in addNewActivity:" + e);
 		} finally {
 			ps = null;
 			conn = null;
@@ -88,13 +89,13 @@ public class CreatedActivityListDAO {
 		}
 	}
 
-	public CreatedActivityListDTO getCreatedActivityList(int activity_id) {
-		CreatedActivityListDTO dto = null;
+	public CreatedActivityListDTO showActivity(int activity_id) {
+		CreatedActivityListDTO dto=null;
 		try {
-			if (conn == null) {
-				conn = JoinMeDB.getConnection();
+			if (conn==null) {
+				conn=JoinMeDB.getConnection();
 			}
-			String query = "select * from created_activity_list where activity_id=" + activity_id;
+			String query="select * from created_activity_list where activity_id="+activity_id;
 			ps = conn.prepareStatement(query);
 			rs = ps.executeQuery();
 			if (rs.next()) {
@@ -110,11 +111,8 @@ public class CreatedActivityListDAO {
 				dto.setUser_id(rs.getInt("user_id"));
 			}
 		} catch (Exception e) {
-			System.out.println("+++Exception in getCreatedActivityList:" + e);
-		} finally {
-			ps = null;
-			rs = null;
-			conn = null;
+			System.out.println("+++Exception in showActivity:" + e);
+		}finally {
 			return dto;
 		}
 	}
@@ -152,6 +150,61 @@ public class CreatedActivityListDAO {
 			rs = null;
 			conn = null;
 			return al;
+		}
+	}
+	
+	public ArrayList<CreatedActivityListDTO> getMyActivities(int user_id) {
+		ArrayList<CreatedActivityListDTO> al = new ArrayList<>();
+		CreatedActivityListDTO dto = null;
+		try {
+			if (conn == null) {
+				conn = JoinMeDB.getConnection();
+			}
+			String qurey = "select * from created_activity_list where user_id=" + user_id;
+			ps = conn.prepareStatement(qurey);
+			rs = ps.executeQuery();
+			while (rs.next()) {
+				dto = new CreatedActivityListDTO();
+				dto.setActivity_date(rs.getString("activity_date"));
+				dto.setActivity_id(rs.getInt("activity_id"));
+				dto.setActivity_name(rs.getString("activity_name"));
+				dto.setCost(rs.getInt("cost"));
+				dto.setCreated_datetime(rs.getString("created_datetime"));
+				dto.setDescription(rs.getString("description"));
+				dto.setStatus(rs.getString("status").charAt(0));
+				dto.setTag_id(rs.getInt("tag_id"));
+				dto.setUser_id(rs.getInt("user_id"));
+				al.add(dto);
+			}
+		} catch (Exception e) {
+			System.out.println("+++Exception in getMyActivities: " + e);
+		} finally {
+			if (al.isEmpty()) {
+				al=null;
+			}
+			rs=null;
+			ps=null;
+			conn=null;
+			return al;
+		}
+	}
+	
+	public LinkedHashMap<Integer, String> searchActivityByTag(int tag_id) {
+		LinkedHashMap<Integer, String> map = new LinkedHashMap<>();
+		try {
+			if (conn == null) {
+				conn = JoinMeDB.getConnection();
+			}
+			String query = "select activity_id, activity_name from created_activity_list where tag_id=" + tag_id;
+			ps = conn.prepareStatement(query);
+			rs = ps.executeQuery();
+			while (rs.next()) {
+				map.put(rs.getInt("activityid"), rs.getString("activity_name"));
+			}
+		} catch (Exception e) {
+			System.out.println("+++Exception in searchActivityByTag:" + e);
+		} finally {
+			return map;
 		}
 	}
 }
