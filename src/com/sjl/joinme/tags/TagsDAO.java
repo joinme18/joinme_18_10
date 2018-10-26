@@ -103,4 +103,47 @@ public class TagsDAO {
 			return al;
 		}
 	}
+	
+	public boolean checkTag(String tag) {
+		boolean flag = false;
+		try {
+			if (conn == null) {
+				conn = JoinMeDB.getConnection();
+			}
+			String query = "select tag from tags where tag="+tag;
+			ps=conn.prepareStatement(query);
+			rs = ps.executeQuery();
+			if (rs.next()) {
+				flag = true;
+			}
+		} catch (Exception e) {
+			System.out.println("+++Exception in chackTag: " + e);
+		} finally {
+			rs=null;
+			ps=null;
+			conn=null;
+			return flag;
+		}
+	}
+
+	public boolean checkTagAndActivity(String tag, String activity) {
+		boolean flag = false;
+		try {
+			if (conn == null) {
+				conn = JoinMeDB.getConnection();
+			}
+			String query = "select tag from tags,created_activity_list where tags.tag_id=created_activity_list.tag_id and tag=? and activity_name=?";
+			ps=conn.prepareStatement(query);
+			ps.setString(1, tag);
+			ps.setString(2, activity);
+			rs = ps.executeQuery();
+			if (rs.next()) {
+				flag = true;
+			}
+		} catch (Exception e) {
+			System.out.println("+++Exception in checkTagAndActivity: " + e);
+		} finally {
+			return flag;
+		}
+	}
 }
