@@ -24,53 +24,6 @@ public class CreatedActivityListDAO {
 	private Connection conn = null;
 	private PreparedStatement ps = null;
 	private ResultSet rs = null;
-
-	public boolean addNewActivity(CreatedActivityListDTO dto) {
-		boolean flag = false;
-		try {
-			if (conn == null) {
-				conn = JoinMeDB.getConnection();
-			}
-			String query = "insert into created_activity_list(tag_id, user_id,"
-					+ " cost, activity_name, activity_description, activity_date, status,lat,lng)" + " values(?,?,?,?,?,?,?,?,?)";
-			ps = conn.prepareStatement(query);
-			ps.setInt(1, dto.getTag_id());
-			ps.setInt(2, dto.getUser_id());
-			ps.setInt(3, dto.getCost());
-			ps.setString(4, dto.getActivity_name());
-			ps.setString(5, dto.getActivity_description());
-			ps.setString(6, dto.getActivity_date());
-			ps.setString(7, "" + dto.getStatus());
-			ps.setString(8,dto.getLat());
-			ps.setString(9,dto.getLng());
-			if (ps.executeUpdate() > 0) {
-				flag = true;
-			}
-		} catch (Exception e) {
-			System.out.println("+++Exception in addNewActivity:" + e);
-		} finally {
-			ps = null;
-			conn = null;
-			return flag;
-		}
-	}
-
-	
-	
-	
-	
-	
-
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 	
 	public boolean updateCreatedActivityList(CreatedActivityListDTO dto) {
 		boolean flag = false;
