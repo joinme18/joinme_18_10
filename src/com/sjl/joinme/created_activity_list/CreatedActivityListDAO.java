@@ -5,20 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
-
 import com.sjl.joinme.database.JoinMeDB;
-
-
-
-
-
-
-
-
-
-
-
-
 
 public class CreatedActivityListDAO {
 	private Connection conn = null;
