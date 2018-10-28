@@ -138,4 +138,42 @@ public class SelectedActivityListDAO {
 			return al;
 		}
 	}
+	
+	public ArrayList<CreatedActivityListDTO> getSelectedActivities(int user_id) {
+		ArrayList<CreatedActivityListDTO> al = new ArrayList<>();
+		CreatedActivityListDTO dto = null;
+		try {
+			if (conn == null) {
+				conn = JoinMeDB.getConnection();
+			}
+			String qurey = "select created_activity_list.* from selected_activity_list,"
+					+ " created_activity_list where created_activity_list.activity_id=selected_activity_list.activity_id"
+					+ " and selected_activity_list.user_id=" + user_id;
+			ps = conn.prepareStatement(qurey);
+			rs = ps.executeQuery();
+			while (rs.next()) {
+				dto = new CreatedActivityListDTO();
+				dto.setActivity_date(rs.getString("activity_date"));
+				dto.setActivity_id(rs.getInt("activity_id"));
+				dto.setActivity_name(rs.getString("activity_name"));
+				dto.setCost(rs.getInt("cost"));
+				dto.setCreated_datetime(rs.getString("created_datetime"));
+				dto.setDescription(rs.getString("description"));
+				dto.setStatus(rs.getString("status").charAt(0));
+				dto.setTag_id(rs.getInt("tag_id"));
+				dto.setUser_id(rs.getInt("user_id"));
+				al.add(dto);
+			}
+		} catch (Exception e) {
+			System.out.println("+++Exception in getSelectedActivities: " + e);
+		} finally {
+			if (al.isEmpty()) {
+				al = null;
+			}
+			rs = null;
+			ps = null;
+			conn = null;
+			return al;
+		}
+	}
 }

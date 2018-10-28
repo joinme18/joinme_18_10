@@ -36,45 +36,6 @@ public class TagsDAO {
 			return flag;
 		}
 	}
-
-	
-	
-	
-	
-	
-	
-	
-
-
-
-	public int tagNameToTagID(String tag)
-	{
-		int flag = -1;
-		try {
-			if (conn == null) {
-				conn = JoinMeDB.getConnection();
-			}
-			String query = "select tag_id from tags where tag='"+tag+"'";
-			ps = conn.prepareStatement(query);
-	
-			rs = ps.executeQuery();
-			if (rs.next()) {
-				flag=rs.getInt("tag_id");
-			}
-		} catch (Exception e) {
-			System.out.println("+++Exception in tagNameToTagID:" + e);
-		} finally {
-			ps = null;
-			conn = null;
-			return flag;
-		}
-	}
-
-	
-	
-	
-	
-	
 	
 	public boolean updateTags(TagsDTO dto) {
 		boolean flag = false;
@@ -173,6 +134,7 @@ public class TagsDAO {
 			return al;
 		}
 	}
+<<<<<<< HEAD
 	public static void main(String[] args) {
 		for(TagsDTO dto: new TagsDAO().getAllTagsDTO())
 			System.out.println(dto.getTag()+"\t"+dto.getTag_description());
@@ -187,10 +149,60 @@ public class TagsDAO {
 	public TagsDTO getTagDTO(int tag_id) {
 		
 		TagsDTO dto=null;
+=======
+	
+	public boolean checkTag(String tag) {
+		boolean flag = false;
 		try {
 			if (conn == null) {
 				conn = JoinMeDB.getConnection();
 			}
+			String query = "select tag from tags where tag="+tag;
+			ps=conn.prepareStatement(query);
+			rs = ps.executeQuery();
+			if (rs.next()) {
+				flag = true;
+			}
+		} catch (Exception e) {
+			System.out.println("+++Exception in chackTag: " + e);
+		} finally {
+			rs=null;
+			ps=null;
+			conn=null;
+			return flag;
+		}
+	}
+
+	public boolean checkTagAndActivity(String tag, String activity) {
+		boolean flag = false;
+		try {
+			if (conn == null) {
+				conn = JoinMeDB.getConnection();
+			}
+			String query = "select tag from tags,created_activity_list where tags.tag_id=created_activity_list.tag_id and tag=? and activity_name=?";
+			ps=conn.prepareStatement(query);
+			ps.setString(1, tag);
+			ps.setString(2, activity);
+			rs = ps.executeQuery();
+			if (rs.next()) {
+				flag = true;
+			}
+		} catch (Exception e) {
+			System.out.println("+++Exception in checkTagAndActivity: " + e);
+		} finally {
+			return flag;
+		}
+	}
+	
+		public int tagNameToTagID(String tag)
+	{
+		int flag = -1;
+>>>>>>> d30d1f5dc51321df88760bfb49648b1903af67a7
+		try {
+			if (conn == null) {
+				conn = JoinMeDB.getConnection();
+			}
+<<<<<<< HEAD
 			String query = "select * from tags where tag_id='"+tag_id+"'";
 			ps = conn.prepareStatement(query);
 			rs = ps.executeQuery();
@@ -224,4 +236,21 @@ public class TagsDAO {
 	
 	
 	
+=======
+			String query = "select tag_id from tags where tag='"+tag+"'";
+			ps = conn.prepareStatement(query);
+	
+			rs = ps.executeQuery();
+			if (rs.next()) {
+				flag=rs.getInt("tag_id");
+			}
+		} catch (Exception e) {
+			System.out.println("+++Exception in tagNameToTagID:" + e);
+		} finally {
+			ps = null;
+			conn = null;
+			return flag;
+		}
+	}
+>>>>>>> d30d1f5dc51321df88760bfb49648b1903af67a7
 }
