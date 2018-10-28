@@ -1,9 +1,17 @@
 <!DOCTYPE html>
+<%@page import="com.sjl.joinme.created_activity_list.CreatedActivityListDAO"%>
+<%@page import="com.sjl.joinme.created_activity_list.CreatedActivityListDTO"%>
 <%@page import="java.util.ArrayList"%>
-<%@page import="com.sjl.joinme.tags.TagsDAO"%>
-<%@page import="com.sjl.joinme.tags.TagsDTO"%>
+<%
+if(!"view".equals(request.getParameter("show_activities"))||!request.getMethod().equalsIgnoreCase("post")){
+	%>
+	<jsp:forward page="home.jsp"></jsp:forward>
+	<%
+}
+
+%>
 <html>
-<title>W3.CSS Template</title>
+<title>show all activities</title>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
@@ -184,27 +192,36 @@ html, body, h1, h2, h3, h4, h5 {
 
 
 
-<%
-ArrayList<TagsDTO> alTDTO=new ArrayList();
-TagsDAO tdao=new TagsDAO();
-alTDTO=tdao.getAllTagsDTO();
 
-for(TagsDTO tdto:alTDTO){
+
+
+
+
+
+
+
+
+<%
+ArrayList<CreatedActivityListDTO> alADTO=new ArrayList();
+CreatedActivityListDAO adao=new CreatedActivityListDAO();
+alADTO=adao.getAllCreatedActivityListWithTagID(Integer.parseInt(request.getParameter("tag_id")));
+
+for(CreatedActivityListDTO adto:alADTO){
 %>
 
 						<div class="col-lg-3 col-md-6">
 							<div class="card">
 								<div class="card-body">
-									<form action="show_all_activities.jsp" method="post">
-									<img src="pics/0 (<%=tdto.getTag_id()%150%>).jpg" alt=""
+									<form action="activity_details.jsp" method="post">
+									<img src="pics/0 (<%=adto.getActivity_id()%150%>).jpg" alt=""
 										class="img-fluid rounded-circle w-50 mb-3">
-									<h3><%=tdto.getTag()%></h3>
+									<h3><%=adto.getActivity_name()%></h3>
 									<h5 class="text-muted"></h5>
-									<p><%= tdto.getTag_description()%></p>
+									<p><%= adto.getActivity_description()%></p>
 									<div class="d-flex flex-row justify-content-center">
 										<div class="p-4">
-										<input type="hidden" name="tag_id" value=<%=tdto.getTag_id() %>>
-											<input class="btn btn-dark" type="submit" name="show_activities" value="view" >
+										<input type="hidden" name="activity_id" value=<%=adto.getActivity_id() %>>
+											<input class="btn btn-dark" type="submit" name="show_details" value="details" >
 										</div>
 									</div>
 									</form>
@@ -212,15 +229,6 @@ for(TagsDTO tdto:alTDTO){
 							</div>
 						</div>
 <%} %>
-
-
-
-
-
-
-
-
-
 
 
 

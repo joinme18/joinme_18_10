@@ -1,12 +1,14 @@
 <!DOCTYPE html>
 <%@page import="java.util.ArrayList"%>
-<%@page import="com.sjl.joinme.tags.TagsDAO"%>
-<%@page import="com.sjl.joinme.tags.TagsDTO"%>
+<%@page
+	import="com.sjl.joinme.created_activity_list.CreatedActivityListDTO"%>
+<%@page
+	import="com.sjl.joinme.created_activity_list.CreatedActivityListDAO"%>
 <html>
 <title>W3.CSS Template</title>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet" href="css/w3.css">
 
 <link rel="stylesheet"
 	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -15,10 +17,6 @@
 <link rel="stylesheet"
 	href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
 	integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
-	crossorigin="anonymous">
-<link rel="stylesheet"
-	href="https://use.fontawesome.com/releases/v5.1.0/css/all.css"
-	integrity="sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt"
 	crossorigin="anonymous">
 <style>
 html, body, h1, h2, h3, h4, h5 {
@@ -41,17 +39,6 @@ html, body, h1, h2, h3, h4, h5 {
 #authors .card:hover .fa {
 	color: #fff;
 }
-
-.form-control-borderless {
-	border: none;
-}
-
-.form-control-borderless:hover, .form-control-borderless:active,
-	.form-control-borderless:focus {
-	border: none;
-	outline: none;
-	box-shadow: none;
-}
 </style>
 <body class="w3-light-grey">
 
@@ -60,7 +47,7 @@ html, body, h1, h2, h3, h4, h5 {
 		<button
 			class="w3-bar-item w3-button w3-hide-large w3-hover-none w3-hover-text-light-grey"
 			onclick="w3_open();">
-			<i class="fa fa-bars"></i>  Menu
+			<i class="fa fa-bars"></i> Menu
 		</button>
 		<span class="w3-bar-item w3-right"><img class="w3-circle"
 			src="img/joinme.jpg" style="width: 50px;">JOIN ME!</span>
@@ -86,24 +73,20 @@ html, body, h1, h2, h3, h4, h5 {
 		</div>
 		<hr>
 
-
 		<div class="w3-bar-block ">
 			<a href="#"
-				class="w3-bar-item w3-button w3-padding-16 w3-hide-large w3-dark-grey w3-hover-black"
-				onclick="w3_close()" title="close menu"><i
-				class="fas fa-user-alt"></i>  Close Menu</a> <a href="#"
 				class="w3-bar-item w3-button w3-padding-16 w3-hide-large w3-dark-grey w3-hover-black"
 				onclick="w3_close()" title="close menu"><i
 				class="fas fa-user-alt"></i>Close Menu</a> <a href="home.jsp"
 				class="w3-bar-item w3-button w3-padding"><i
 				class="fa fa-users fa-fw"></i>Home</a> <a href="my_activities.jsp"
-				class="w3-bar-item w3-button w3-padding  "><i
+				class="w3-bar-item w3-button w3-padding w3-blue"><i
 				class="fa fa-user fa-fw"></i> My Activities</a> <a
 				href="selected_activities.jsp"
 				class="w3-bar-item w3-button w3-padding"><i
 				class="fa fa-eye fa-fw"></i>Selected Activities</a> <a
 				href="search_activities.jsp"
-				class="w3-bar-item w3-button w3-padding w3-blue"><i
+				class="w3-bar-item w3-button w3-padding"><i
 				class="fa fa-search fa-fw"></i>Search Activities</a> <a
 				href="contacts.jsp" class="w3-bar-item w3-button w3-padding"><i
 				class="fa fa-users fa-fw"></i>My Contacts</a> <a href="logout.jsp"
@@ -124,120 +107,93 @@ html, body, h1, h2, h3, h4, h5 {
 
 		<!-- Header -->
 
-
-
-
+		<!-- /////////////////////////////////////////////////////////////////////////////// -->
+		<%
+			CreatedActivityListDAO dao = new CreatedActivityListDAO();
+			ArrayList<CreatedActivityListDTO> al = dao
+					.getMyActivities(Integer.parseInt(session.getAttribute("user_id").toString()));
+			for (CreatedActivityListDTO dto : al) {
+		%>
 		<section id="authors" class="my-5 text-center">
 			<div class="container">
 				<div class="row">
 					<div class="col">
 						<div class="info-header mb-5">
-							<h1 class="text-primary mt-5 pb-3">Search Activities</h1>
-							<p class="lead pb-3">Lorem ipsum dolor sit amet, consectetur
-								adipisicing elit. Amet omnis fuga maiores excepturi dolores
-								explicabo.</p>
+							<h1 class="text-primary mt-5 pb-3">My Activities</h1>
+							<p class="lead pb-3">Here are the Activities Created by you.
+							</p>
 						</div>
 					</div>
 				</div>
-				<div class="container mb-3">
-
-					<div class="row justify-content-center">
-						<div class="col-12 col-md-10 col-lg-8">
-							<form class="card card-sm">
-								<div class="card-body row no-gutters align-items-center">
-									<div class="col-auto">
-										<i class="fas fa-search h4 text-body"></i>
-									</div>
-									<!--end of col-->
-									<div class="col">
-										<input
-											class="form-control form-control-lg form-control-borderless"
-											type="search" placeholder="Search tags">
-									</div>
-									<!--end of col-->
-									<div class="col-auto">
-										<button class="btn btn-lg btn-success" type="submit">Search</button>
-									</div>
-									<!--end of col-->
-								</div>
+			</div>
+			<div class="row">
+				<div class="col-lg-3 col-md-6">
+					<div class="card">
+						<div class="card-body">
+							<img src="img/person1.jpg" alt=""
+								class="img-fluid rounded-circle w-50 mb-3">
+							<h3><%=dto.getActivity_name()%></h3>
+							<h5 class="text-muted"></h5>
+							<p><%=dto.getActivity_description()%></p>
+							<br>
+							<form action="show_activity.jsp" method="post">
+								<input type="hidden" name="user_id"
+									value="<%=dto.getUser_id()%>"> <input type="submit"
+									value="show">
 							</form>
-						</div>
-						<!--end of col-->
-					</div>
-				</div>
-				<div class="container">
-					<div class="row">
-						<div class="col">
-							<div class="info-header mb-5">
-								<h1 class="text-primary mt-5 pb-3">Trending List</h1>
-								<p class="lead pb-3">Lorem ipsum dolor sit amet, consectetur
-									adipisicing elit. Amet omnis fuga maiores excepturi dolores
-									explicabo.</p>
+							<div class="d-flex flex-row justify-content-center">
+								<div class="p-4"></div>
+								<div class="p-4"></div>
+								<div class="p-4"></div>
 							</div>
 						</div>
-					</div>
-					<div class="row">
-
-
-
-
-
-
-
-<%
-ArrayList<TagsDTO> alTDTO=new ArrayList();
-TagsDAO tdao=new TagsDAO();
-alTDTO=tdao.getAllTagsDTO();
-
-for(TagsDTO tdto:alTDTO){
-%>
-
-						<div class="col-lg-3 col-md-6">
-							<div class="card">
-								<div class="card-body">
-									<form action="show_all_activities.jsp" method="post">
-									<img src="pics/0 (<%=tdto.getTag_id()%150%>).jpg" alt=""
-										class="img-fluid rounded-circle w-50 mb-3">
-									<h3><%=tdto.getTag()%></h3>
-									<h5 class="text-muted"></h5>
-									<p><%= tdto.getTag_description()%></p>
-									<div class="d-flex flex-row justify-content-center">
-										<div class="p-4">
-										<input type="hidden" name="tag_id" value=<%=tdto.getTag_id() %>>
-											<input class="btn btn-dark" type="submit" name="show_activities" value="view" >
-										</div>
-									</div>
-									</form>
-								</div>
-							</div>
-						</div>
-<%} %>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 					</div>
 				</div>
 		</section>
+		<%
+			}
+		%>
+
+		<!-- /////////////////////////////////////////////////////////////////////////////// -->
+
+
+		<!-- To Remove below lines -->
+		<section id="authors" class="my-5 text-center">
+			<div class="container">
+				<div class="row">
+					<div class="col">
+						<div class="info-header mb-5">
+							<h1 class="text-primary mt-5 pb-3">My Activities</h1>
+							<p class="lead pb-3">Here are the Activities Created by you.
+							</p>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-lg-3 col-md-6">
+					<div class="card">
+						<div class="card-body">
+							<img src="img/person1.jpg" alt=""
+								class="img-fluid rounded-circle w-50 mb-3">
+							<h3>Sports</h3>
+							<h5 class="text-muted"></h5>
+							<p>Would you like to join me to play cricket....</p>
+							<br>
+							<form action="show_activity.jsp" method="post">
+								<input type="hidden" name="user_id" value="45"> <input
+									type="submit" value="show">
+							</form>
+							<div class="d-flex flex-row justify-content-center">
+								<div class="p-4"></div>
+								<div class="p-4"></div>
+								<div class="p-4"></div>
+							</div>
+						</div>
+					</div>
+				</div>
+		</section>
+
 		<!-- <div class="w3-row mt-3">
       <div class="w3-col m2 text-center">
         <img class="w3-circle" src="https://colorlib.com//polygon/admindek/files/assets/images/avatar-4.jpg">
@@ -276,7 +232,12 @@ for(TagsDTO tdto:alTDTO){
     </div> -->
 
 
-
+		<!-- ADD ACTIVITY BUTTONS -->
+		<div class="text-center">
+			<a class="btn btn-primary btn-lg text-light"
+				href="add_new_activity.jsp" role="button">ADD Activity</a>
+		</div>
+		<!-- ADD ACTIVITY BUTTONS ENDS-->
 
 		<!-- Footer -->
 		<footer class="w3-container w3-padding-16 w3-light-grey">

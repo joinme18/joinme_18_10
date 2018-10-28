@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<%@page import="com.sjl.joinme.created_activity_list.CreatedActivityListDAO"%>
+<%@page
+	import="com.sjl.joinme.created_activity_list.CreatedActivityListDAO"%>
 <%@page import="com.sjl.joinme.tags.TagsDAO"%>
 <html lang="en">
 
@@ -7,26 +8,24 @@
 
 
 <%
-if("done".equals(request.getParameter("add_activity"))&&request.getMethod().equalsIgnoreCase("post"))
-{
+	if ("done".equals(request.getParameter("add_activity")) && request.getMethod().equalsIgnoreCase("post")) 
+	{
 %>
 
-<jsp:useBean id="adto" class="com.sjl.joinme.created_activity_list.CreatedActivityListDTO"></jsp:useBean>
-<jsp:setProperty property="*" name="adto"/>
-<%
-adto.setTag_id(1);
-new CreatedActivityListDAO().addCreatedActivityList(adto);
+<jsp:useBean id="adto"
+	class="com.sjl.joinme.created_activity_list.CreatedActivityListDTO"></jsp:useBean>
+<jsp:setProperty property="*" name="adto" />
 
-%>
 
-	<jsp:useBean id="tdto" class="com.sjl.joinme.tags.TagsDTO"></jsp:useBean>
-	<jsp:setProperty property="*" name="tdto"/>
+<jsp:useBean id="tdto" class="com.sjl.joinme.tags.TagsDTO"></jsp:useBean>
+<jsp:setProperty property="*" name="tdto" />
+<%		new TagsDAO().addTags(tdto);
+	    adto.setTag_id(new TagsDAO().tagNameToTagID(request.getParameter("tag")));
+	    System.out.println(new TagsDAO().tagNameToTagID(request.getParameter("tag")));
+		new CreatedActivityListDAO().addCreatedActivityList(adto);
+		
 
-<%	
-System.out.print(tdto.getTag());
-new TagsDAO().addTags(tdto);
-
-}
+	}
 %>
 
 
@@ -125,7 +124,7 @@ html, body {
 		};
 
 		map = new google.maps.Map(document.getElementById('map'), {
-			zoom : 16.3, // Set the zoom level manually
+			zoom : 4, // Set the zoom level manually
 			center : haightAshbury,
 			mapTypeId : 'terrain'
 		});
@@ -206,81 +205,113 @@ html, body {
 
 
 						<div class="col-lg-6">
-						<br>
-						<br>
+							<br> <br>
 							<div class="card bg-primary text-center card-form">
 								<div class="card-body">
 									<h3>Activity Details</h3>
 									<p>please fill out this form to add activity</p>
 									<form action="add_new_activity.jsp" method="post">
-									
+
 										<div class="form-group">
-											<input type="text" class="form-control form-control-lg" name="tag" placeholder="Tag Name">
-										</div>
-										
-										<div class="form-group">
-											<input type="text" class="form-control form-control-lg" name="tag_description" placeholder="Tag description">
-										</div>
-										
-										<div class="form-group">
-											<input type="file" class="form-control form-control-lg" name="tag_image" placeholder="tag_image">
-										</div>
-										
-										<div class="form-group">
-											<input type="text" class="form-control form-control-lg" name="activity_name" placeholder="activity name">
-										</div>
-										
-										<div class="form-group">
-											<textarea type="text" class="form-control form-control-lg" name="activity_description" placeholder="Description">
-											Description of the activity
-                  							</textarea>
-										</div>
-										
-										<div class="form-group">
-											<input type="file" class="form-control form-control-lg" name="activities_images" placeholder="activities_images">
-										</div>
-										
-										
-									    <div class="form-group">
-											<input type="date" class="form-control form-control-lg" name="activity_date" placeholder="dateandtime">
-										</div>
-										
-										
-										<input type="text" name="lat" class="form-control form-control-lg" id="lat" placeholder="lat">
-										<input type="text" name="lng" class="form-control form-control-lg" id="long" placeholder="lng">
-										<%int u_id=0;
-										if(session.getAttribute("user_id")!=null)
-										{
-											u_id=(int)session.getAttribute("user_id");
-										}
-										%>
-										<input type="hidden" name="user_id" value=<%=/*u_id*/70%>>
-										
-										<div class="form-group">
-											<input type="text" class="form-control form-control-lg" name="cost" placeholder="cost">
+											<input type="text" class="form-control form-control-lg"
+												name="tag" placeholder="Tag Name">
 										</div>
 
-										<input type="submit" name="add_activity" value="done" class="btn btn-outline-light btn-block">
+										<div class="form-group">
+											<input type="text" class="form-control form-control-lg"
+												name="tag_description" maxlength="70"
+												placeholder="Tag description">
+										</div>
+
+										<div class="form-group">
+											<input type="file" class="form-control form-control-lg"
+												name="tag_image" placeholder="tag_image">
+										</div>
+
+										<div class="form-group">
+											<input type="text" class="form-control form-control-lg"
+												name="activity_name" placeholder="activity name">
+										</div>
+
+										<div class="form-group">
+											<textarea type="text" class="form-control form-control-lg"
+												name="activity_description"
+												placeholder="activity Description"></textarea>
+										</div>
+
+										<div class="form-group">
+											<input type="file" class="form-control form-control-lg"
+												name="activities_images" placeholder="activities_images">
+										</div>
+
+
+										<div class="form-group">
+											<input type="date" class="form-control form-control-lg"
+												name="activity_date" placeholder="dateandtime">
+										</div>
+
+
+										<input type="text" name="lat"
+											class="form-control form-control-lg" id="lat"
+											placeholder="lat"> <input type="text" name="lng"
+											class="form-control form-control-lg" id="long"
+											placeholder="lng">
+										<%
+											int u_id = 0;
+											if (session.getAttribute("user_id") != null) {
+												u_id = (int) session.getAttribute("user_id");
+											}
+										%>
+										<input type="hidden" name="user_id" value=<%=/*u_id*/70%>>
+
+										<div class="form-group">
+											<input type="text" class="form-control form-control-lg"
+												name="cost" placeholder="cost">
+										</div>
+
+										<input type="submit" name="add_activity" value="done"
+											class="btn btn-outline-light btn-block">
 									</form>
 									<br>
 								</div>
-								
+
 							</div>
 						</div>
 
 
 						<div class="col-lg-6">
-							<br><br>
+							<br>
+							<br>
 							<div id="map"></div>
-							<br><br><br><br><br><br><br><br><br><br>
-							</div>
+							<br>
+							<br>
+							<br>
+							<br>
+							<br>
+							<br>
+							<br>
+							<br>
+							<br>
+							<br>
 						</div>
-						<br><br><br><br><br><br><br><br><br><br><br><br>
-						
-
 					</div>
+					<br>
+					<br>
+					<br>
+					<br>
+					<br>
+					<br>
+					<br>
+					<br>
+					<br>
+					<br>
+					<br>
+					<br>
+
+
 				</div>
 			</div>
+		</div>
 		</div>
 	</header>
 
