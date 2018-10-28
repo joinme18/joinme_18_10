@@ -13,7 +13,7 @@ public class SelectedActivityListDAO {
 	private PreparedStatement ps = null;
 	private ResultSet rs = null;
 
-	public boolean addSelectedActivityList(int user_id,int activity_id) {
+	public boolean addSelectedActivityList(SelectedActivityListDTO dto) {
 		boolean flag = false;
 		try {
 			if (conn == null) {
@@ -22,9 +22,9 @@ public class SelectedActivityListDAO {
 			String query = "insert into selected_activity_list(user_id, activity_id)"
 					+ " values(?,?)";
 			ps = conn.prepareStatement(query);
-			ps.setInt(1, user_id);
-			ps.setInt(2, activity_id);
-			
+			ps.setInt(1, dto.getUser_id());
+			ps.setInt(2, dto.getActivity_id());
+			//ps.setString(3, dto.getCreated_datetime());
 			if (ps.executeUpdate() > 0) {
 				flag = true;
 			}

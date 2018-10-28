@@ -1,15 +1,7 @@
 package com.sjl.joinme.created_activity_list;
 
 public class CreatedActivityListDTO {
-	private int activity_id, tag_id, user_id, cost,count;
-	public int getCount() {
-		return count;
-	}
-
-	public void setCount(int count) {
-		this.count = count;
-	}
-
+	private int activity_id, tag_id, user_id, cost;
 	private String activity_name, activity_description, created_datetime, activity_date,lat,lng;
 	public String getLat() {
 		return lat;

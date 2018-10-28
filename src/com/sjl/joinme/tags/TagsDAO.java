@@ -78,37 +78,6 @@ public class TagsDAO {
 			return flag;
 		}
 	}
-	
-	public ArrayList<TagsDTO> getAllTagsDTO() {
-		ArrayList<TagsDTO> al = new ArrayList<>();
-		TagsDTO dto=null;
-		try {
-			if (conn == null) {
-				conn = JoinMeDB.getConnection();
-			}
-			String query = "select * from tags";
-			ps = conn.prepareStatement(query);
-			rs = ps.executeQuery();
-			while (rs.next()) {
-				dto=new TagsDTO();
-				dto.setCreated_datetime(rs.getString("created_datetime"));
-				dto.setTag(rs.getString("tag"));
-				dto.setTag_description(rs.getString("tag_description"));
-				dto.setTag_id(rs.getInt("tag_id"));				
-				al.add(dto);
-			}
-		} catch (Exception e) {
-			System.out.println("+++Exception in getAllTags:" + e);
-		} finally {
-			if (al.isEmpty()) {
-				al = null;
-			}
-			ps = null;
-			rs = null;
-			conn = null;
-			return al;
-		}
-	}
 
 	public ArrayList<String> getAllTags() {
 		ArrayList<String> al = new ArrayList<>();
@@ -134,6 +103,7 @@ public class TagsDAO {
 			return al;
 		}
 	}
+<<<<<<< HEAD
 <<<<<<< HEAD
 	public static void main(String[] args) {
 		for(TagsDTO dto: new TagsDAO().getAllTagsDTO())
@@ -253,4 +223,6 @@ public class TagsDAO {
 		}
 	}
 >>>>>>> d30d1f5dc51321df88760bfb49648b1903af67a7
+=======
+>>>>>>> parent of 226fdbe... search activities added
 }
