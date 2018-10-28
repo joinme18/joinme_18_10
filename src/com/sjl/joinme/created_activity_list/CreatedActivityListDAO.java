@@ -61,7 +61,6 @@ public class CreatedActivityListDAO {
 	}
 
 <<<<<<< HEAD
-<<<<<<< HEAD
 	
 	
 	
@@ -148,8 +147,6 @@ public class CreatedActivityListDAO {
 	}
 	
 
-=======
->>>>>>> parent of 226fdbe... search activities added
 	public CreatedActivityListDTO getCreatedActivityList(int activity_id) {
 		CreatedActivityListDTO dto = null;
 =======
@@ -170,10 +167,13 @@ public class CreatedActivityListDAO {
 				dto.setActivity_name(rs.getString("activity_name"));
 				dto.setCost(rs.getInt("cost"));
 				dto.setCreated_datetime(rs.getString("created_datetime"));
-				dto.setActivity_description(rs.getString("getActivity_description"));
+				dto.setActivity_description(rs.getString("activity_description"));
 				dto.setStatus(rs.getString("status").charAt(0));
 				dto.setTag_id(rs.getInt("tag_id"));
 				dto.setUser_id(rs.getInt("user_id"));
+				dto.setLat(rs.getString("lat"));
+				dto.setLng(rs.getString("lng"));
+				dto.setCount(rs.getInt("count"));
 			}
 		} catch (Exception e) {
 			System.out.println("+++Exception in showActivity:" + e);
@@ -199,7 +199,7 @@ public class CreatedActivityListDAO {
 				dto.setActivity_name(rs.getString("activity_name"));
 				dto.setCost(rs.getInt("cost"));
 				dto.setCreated_datetime(rs.getString("created_datetime"));
-				dto.setActivity_description(rs.getString("getActivity_description"));
+				dto.setActivity_description(rs.getString("Activity_description"));
 				dto.setStatus(rs.getString("status").charAt(0));
 				dto.setTag_id(rs.getInt("tag_id"));
 				dto.setUser_id(rs.getInt("user_id"));
@@ -217,7 +217,6 @@ public class CreatedActivityListDAO {
 			return al;
 		}
 	}
-<<<<<<< HEAD
 <<<<<<< HEAD
 
 
@@ -325,6 +324,6 @@ public ArrayList<CreatedActivityListDTO> getAllCreatedActivityListWithTagID(int 
 		}
 	}
 >>>>>>> d30d1f5dc51321df88760bfb49648b1903af67a7
-=======
->>>>>>> parent of 226fdbe... search activities added
 }
+
+
