@@ -3,7 +3,7 @@
 <%@page import="com.sjl.joinme.created_activity_list.CreatedActivityListDTO"%>
 <%@page import="java.util.ArrayList"%>
 <%
-if(!"view".equals(request.getParameter("show_activities"))||!request.getMethod().equalsIgnoreCase("post")){
+if(!"view".equals(request.getParameter("show_activities"))){
 	%>
 	<jsp:forward page="home.jsp"></jsp:forward>
 	<%
@@ -87,6 +87,7 @@ html, body, h1, h2, h3, h4, h5 {
 			</div>
 			<div class="w3-col s8 w3-bar">
 				<span>Welcome,<br><%=session.getAttribute("first_name")%></span><br>
+				<!-- //////////////////////////////////////////////////////////////need to change above -->
 				<!-- <a href="#" class="w3-bar-item w3-button"><i class="fa fa-envelope"></i></a>
       <a href="#" class="w3-bar-item w3-button"><i class="fa fa-user"></i></a>
       <a href="#" class="w3-bar-item w3-button"><i class="fa fa-cog"></i></a> -->

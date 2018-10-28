@@ -3,7 +3,7 @@ package com.sjl.joinme.user;
 public class UserDTO {
 
 	private int user_id,  rating, coins;
-	private String unique_id, first_name,mobile_number, last_name, date_of_birth, email, location, about, created_datetime, password;
+	private String unique_id, first_name,mobile_number, last_name, date_of_birth, email,about, created_datetime, password,lat,lng;
 	private char gender;
 
 	public UserDTO() {
@@ -82,12 +82,20 @@ public class UserDTO {
 		this.email = email;
 	}
 
-	public String getLocation() {
-		return location;
+	public String getLat() {
+		return lat;
 	}
 
-	public void setLocation(String location) {
-		this.location = location;
+	public void setLat(String lat) {
+		this.lat = lat;
+	}
+
+	public String getLng() {
+		return lng;
+	}
+
+	public void setLng(String lng) {
+		this.lng = lng;
 	}
 
 	public String getAbout() {

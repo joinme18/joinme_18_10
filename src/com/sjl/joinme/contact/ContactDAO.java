@@ -36,4 +36,48 @@ public class ContactDAO {
 		}
 	
 	}
+	
+	
+	
+	
+	
+	
+	
+	public boolean friendExist(int user_id, int friend_id) {
+		boolean flag = false;
+		if (conn == null) {
+			conn = JoinMeDB.getConnection();
+		}
+		try {
+			String query = "select * from contact where user_id="+user_id+" && friend_id="+friend_id;
+			ps = conn.prepareStatement(query);
+			rs=ps.executeQuery();
+			if (rs.next()) {
+				flag = true;
+			}
+
+		} catch (Exception e) {
+			System.out.println("+++Exception at friendExist"+ e);
+		} finally {
+			conn = null;
+			ps = null;
+			return flag;
+
+		}
+	
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 }

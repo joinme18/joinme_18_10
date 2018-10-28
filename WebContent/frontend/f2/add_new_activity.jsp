@@ -1,4 +1,10 @@
 <!DOCTYPE html>
+<%
+	
+	if (session.getAttribute("user_id") == null) {
+		session.setAttribute("user_id", 70);
+	}
+%>
 <%@page
 	import="com.sjl.joinme.created_activity_list.CreatedActivityListDAO"%>
 <%@page import="com.sjl.joinme.tags.TagsDAO"%>
@@ -8,8 +14,7 @@
 
 
 <%
-	if ("done".equals(request.getParameter("add_activity")) && request.getMethod().equalsIgnoreCase("post")) 
-	{
+	if ("done".equals(request.getParameter("add_activity")) && request.getMethod().equalsIgnoreCase("post")) {
 %>
 
 <jsp:useBean id="adto"
@@ -19,11 +24,11 @@
 
 <jsp:useBean id="tdto" class="com.sjl.joinme.tags.TagsDTO"></jsp:useBean>
 <jsp:setProperty property="*" name="tdto" />
-<%		new TagsDAO().addTags(tdto);
-	    adto.setTag_id(new TagsDAO().tagNameToTagID(request.getParameter("tag")));
-	    System.out.println(new TagsDAO().tagNameToTagID(request.getParameter("tag")));
+<%
+	new TagsDAO().addTags(tdto);
+		adto.setTag_id(new TagsDAO().tagNameToTagID(request.getParameter("tag")));
+		System.out.println(new TagsDAO().tagNameToTagID(request.getParameter("tag")));
 		new CreatedActivityListDAO().addCreatedActivityList(adto);
-		
 
 	}
 %>
@@ -255,14 +260,8 @@ html, body {
 											class="form-control form-control-lg" id="lat"
 											placeholder="lat"> <input type="text" name="lng"
 											class="form-control form-control-lg" id="long"
-											placeholder="lng">
-										<%
-											int u_id = 0;
-											if (session.getAttribute("user_id") != null) {
-												u_id = (int) session.getAttribute("user_id");
-											}
-										%>
-										<input type="hidden" name="user_id" value=<%=/*u_id*/70%>>
+											placeholder="lng"> <input type="hidden"
+											name="user_id" value=<%=(int)session.getAttribute("user_id")%>>
 
 										<div class="form-group">
 											<input type="text" class="form-control form-control-lg"
@@ -280,33 +279,14 @@ html, body {
 
 
 						<div class="col-lg-6">
-							<br>
-							<br>
+							<br> <br>
 							<div id="map"></div>
-							<br>
-							<br>
-							<br>
-							<br>
-							<br>
-							<br>
-							<br>
-							<br>
-							<br>
-							<br>
+							<br> <br> <br> <br> <br> <br> <br>
+							<br> <br> <br>
 						</div>
 					</div>
-					<br>
-					<br>
-					<br>
-					<br>
-					<br>
-					<br>
-					<br>
-					<br>
-					<br>
-					<br>
-					<br>
-					<br>
+					<br> <br> <br> <br> <br> <br> <br>
+					<br> <br> <br> <br> <br>
 
 
 				</div>

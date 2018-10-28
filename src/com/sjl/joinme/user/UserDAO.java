@@ -22,7 +22,7 @@ public class UserDAO {
 		}
 		try {
 
-			String query = "insert into user( mobile_number,rating,coins,gender,unique_id,first_name,last_name,date_of_birth,email,location,about,password) values (?,?,?,?,?,?,?,?,?,?,?,?)";
+			String query = "insert into user( mobile_number,rating,coins,gender,unique_id,first_name,last_name,date_of_birth,email,location,about,password,lat,lng) values (?,?,?,?,?,?,?,?,?,?,?,?,?)";
 			ps = conn.prepareStatement(query);
 			ps.setString(1, dto.getMobile_number());
 			ps.setInt(2, dto.getRating());
@@ -33,11 +33,10 @@ public class UserDAO {
 			ps.setString(7, dto.getLast_name());
 			ps.setString(8, dto.getDate_of_birth());
 			ps.setString(9, dto.getEmail());
-			ps.setString(10, dto.getLocation());
-			ps.setString(11, dto.getAbout());
-			// ps.setString(12, dto.getCreated_datetime());
-			ps.setString(12, /*encryption_decryption.encrypt(*/dto.getPassword()/*)*/);/////////////////////need to remove comment
-
+			ps.setString(10, dto.getAbout());
+			ps.setString(11, /*encryption_decryption.encrypt(*/dto.getPassword()/*)*/);/////////////////////need to remove comment
+			ps.setString(12, dto.getLat());
+			ps.setString(13, dto.getLng());
 			if (ps.executeUpdate() > 0) {
 				flag = true;
 			}
@@ -82,7 +81,7 @@ public class UserDAO {
 		}
 		try {
 
-			String query = "update user set mobile_number=?,rating=?,coins=?,gender=?,unique_id=?,first_name=?,last_name=?,date_of_birth=?,email=?,location=?,about=?,created_datetime=?,password=? where user_id=?";
+			String query = "update user set mobile_number=?,rating=?,coins=?,gender=?,unique_id=?,first_name=?,last_name=?,date_of_birth=?,email=?,location=?,about=?,created_datetime=?,password=?,lat=?,lng=? where user_id=?";
 			ps = conn.prepareStatement(query);
 			ps.setString(1, dto.getMobile_number());
 			ps.setInt(2, dto.getRating());
@@ -93,11 +92,12 @@ public class UserDAO {
 			ps.setString(7, dto.getLast_name());
 			ps.setString(8, dto.getDate_of_birth());
 			ps.setString(9, dto.getEmail());
-			ps.setString(10, dto.getLocation());
-			ps.setString(11, dto.getAbout());
-			ps.setString(12, dto.getCreated_datetime());
-			ps.setString(13, encryption_decryption.encrypt(dto.getPassword()));
-			ps.setInt(14, dto.getUser_id());
+			ps.setString(10, dto.getAbout());
+			ps.setString(11, dto.getCreated_datetime());
+			ps.setString(12, encryption_decryption.encrypt(dto.getPassword()));
+			ps.setInt(13, dto.getUser_id());
+			ps.setString(14, dto.getLat());
+			ps.setString(15, dto.getLng());
 			if (ps.executeUpdate() > 0) {
 				flag = true;
 			}
@@ -161,9 +161,10 @@ public class UserDAO {
 				dto.setFirst_name(rs.getString("first_name"));
 				dto.setGender(rs.getString("gender").charAt(0));
 				dto.setLast_name(rs.getString("last_name"));
-				dto.setLocation(rs.getString("location"));
 				dto.setPassword(encryption_decryption.decrypt(rs.getString("password")));
 				dto.setUnique_id(rs.getString("unique_id"));
+				dto.setLat(rs.getString("lat"));
+				dto.setLng(rs.getString("lng"));
 				list.add(dto);
 
 			}
@@ -206,9 +207,11 @@ public class UserDAO {
 				dto.setFirst_name(rs.getString("first_name"));
 				dto.setGender(rs.getString("gender").charAt(0));
 				dto.setLast_name(rs.getString("last_name"));
-				dto.setLocation(rs.getString("location"));
 				dto.setPassword(/*encryption_decryption.decrypt(*/rs.getString("password")/*)*/);
 				dto.setUnique_id(rs.getString("unique_id"));
+				dto.setLat(rs.getString("lat"));
+				dto.setLng(rs.getString("lng"));
+				
 
 			}
 
@@ -249,6 +252,56 @@ public class UserDAO {
 			return user_id;
 		}
 	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	public String getUniqueID(int user_id) {
+		String unique_id=null;
+		boolean flag = false;
+		if (conn == null) {
+			conn = JoinMeDB.getConnection();
+		}
+		try {
+
+			String query = "select unique_id from user where user_id=?";
+			ps = conn.prepareStatement(query);
+			ps.setInt(1, user_id);
+			rs = ps.executeQuery();
+
+			if (rs.next()) {
+				unique_id=rs.getString("unique_id");
+			}
+
+		} catch (Exception e) {
+			System.out.println("+++exception at get student" + e);
+		} finally {
+			ps = null;
+			conn = null;
+			rs = null;
+			return unique_id;
+		}
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	public boolean moblieNumberExist(String mobile_number) {
 		boolean flag = false;

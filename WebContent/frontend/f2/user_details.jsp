@@ -1,7 +1,17 @@
 <!DOCTYPE html>
+<%@page import="com.sjl.joinme.user.UserDTO"%>
+<%@page import="com.sjl.joinme.contact.ContactDAO"%>
 <%@page import="com.sjl.joinme.user.UserDAO"%>
 <%@page
 	import="com.sjl.joinme.selected_activity_list.SelectedActivityListDAO"%>
+
+
+
+
+
+
+ 
+
 <%@page import="com.sjl.joinme.tags.TagsDAO"%>
 <%@page
 	import="com.sjl.joinme.created_activity_list.CreatedActivityListDAO"%>
@@ -15,27 +25,41 @@
 %>
 <%!String message = "";%>
 <%
-	//to add a new selected activity 
-	if ("add".equals(request.getParameter("add_activity")) && request.getMethod().equalsIgnoreCase("post")) {
-		if (!new SelectedActivityListDAO().userIDANDActivityIDExist((int) session.getAttribute("user_id"),
-				Integer.parseInt(request.getParameter("activity_id")))) {
-			new SelectedActivityListDAO().addSelectedActivityList((int) session.getAttribute("user_id"),
-					Integer.parseInt(request.getParameter("activity_id")));
-			message = "activity added";
-		} else {
+	//to add a new contact 
+	if ("add".equals(request.getParameter("add_user")) && request.getMethod().equalsIgnoreCase("post")) 
+	{
+		if (!new ContactDAO().friendExist((int) session.getAttribute("user_id") , Integer.parseInt(request.getParameter("user_id"))))
+		{
+			
+			new ContactDAO().addContact( (int)session.getAttribute("user_id") ,Integer.parseInt(request.getParameter("friend_id")));
+			message="added";
+		}
+		else 
+		{
+			new ContactDAO().addContact((int)session.getAttribute("user_id") ,Integer.parseInt(request.getParameter("friend_id")));
 			message = "already exist";
 		}
-	} else//to check reques is coming from the page->activity_datails
-	if (!"details".equals(request.getParameter("show_details"))
-			|| !request.getMethod().equalsIgnoreCase("post")) {
+	} //show_details=details&friend_id=<%=adto.getUser_id()
+	else//to check reques is coming from the page->activity_datails
+	if (!"details".equals(request.getParameter("show_details"))) {
 %>
 <jsp:forward page="home.jsp"></jsp:forward>
 <%
 	}
-	CreatedActivityListDTO adto = new CreatedActivityListDAO().getCreatedActivityList(Integer.parseInt(request.getParameter("activity_id")));
-	new CreatedActivityListDAO().incrementCount(adto.getActivity_id());
+	
+	
+	
+	
+	UserDTO udto =  new UserDTO();
+    udto=new UserDAO().getUser(Integer.parseInt(request.getParameter("friend_id")));
+
+    
+    
+	
 %>
 <head>
+	
+
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta http-equiv="X-UA-Compatible" content="ie=edge">
@@ -123,7 +147,7 @@ html, body {
 	padding: 0;
 }
 </style>
-
+<!--  
 </head>
 <script>
 	//(23.25023790227152, 77.47747421264648)
@@ -131,10 +155,10 @@ html, body {
 	function initMap() {
 		var myLatLng = {
 			lat :
-<%=adto.getLat()%>
+<%//=adto.getLat()%>
 	,
 			lng :
-<%=adto.getLng()%>
+<%//=adto.getLng()%>
 	};
 		var map = new google.maps.Map(document.getElementById('map'), {
 			zoom : 10,
@@ -155,6 +179,9 @@ html, body {
 &callback=initMap">
 	
 </script>
+
+
+-->
 <body>
 	<nav class="navbar navbar-expand-sm bg-dark navbar-dark fixed-top">
 		<div class="container">
@@ -195,23 +222,28 @@ status; -->
 								<div class="card">
 									<div class="card-body">
 										<img src="img/person1.jpg" alt="" class="img-fluid rounded-circle  mb-3">
-										
+										<%if((int) session.getAttribute("user_id") !=udto.getUser_id()) {%>
+		
 										<form action="activity_details.jsp" method="post">
 											<div class="p-4">
-												<input type="hidden" name="activity_id" value=<%=adto.getActivity_id()%>> 
+												<input type="hidden" name="friend_id" value=<%=udto.getUser_id()%>> 
 													<input class="btn btn-dark" type="submit" name="add_activity" value="add">
-												<h1><%=adto.getActivity_name()%></h1>
+												<h1><%=udto.getFirst_name()%></h1>
+												<h1>@<%=udto.getUnique_id()%></h1>
 												<%=message%>
 											</div>
 										</form>
-										
+		
+		<!-- 
+  location,
+
+		
+		 -->
+		
+										<%} %>
 										<h5 class="text-muted"></h5>
-										<p><%=adto.getActivity_description()%></p>
-										<h4 class="text-sm-left">Created by :<a href="user_details.jsp?show_details=details&friend_id=<%=adto.getUser_id()%>"><%=new UserDAO().getUniqueID(adto.getUser_id())%></a> </h4>
-										<h4 class="text-sm-left">In tag : <a href="show_all_activities.jsp?show_activities=view&tag_id=<%=adto.getTag_id() %>"><%=new TagsDAO().getTagDTO(adto.getTag_id()).getTag()%></a></h4>
-										<h4 class="text-sm-left">Event date : <%=adto.getActivity_date()%></h4>
-										<h4 class="text-sm-left">Tag Name : <%=new TagsDAO().getTagDTO(adto.getTag_id()).getTag()%></h4>
-										<h4 class="text-sm-left">Cost : <%=adto.getCost()%></h4>
+										<p><%=udto.getAbout()%></p>
+										<h4 class="text-sm-left">Rating : <%=udto.getRating()%></h4>
 										
 										<form action="">
 											<div class="form-group">
@@ -224,7 +256,7 @@ status; -->
 								</div>
 							</div>
 
-
+<!--  
 							<div class="col-lg-6">
 								<br> <br>
 								<div id="map"></div>
@@ -235,7 +267,7 @@ status; -->
 						<br> <br> <br> <br> <br> <br> <br>
 						<br> <br> <br> <br> <br>
 
-
+-->
 
 					</div>
 			</div>

@@ -1,4 +1,14 @@
 <!DOCTYPE html>
+<%
+	
+	if (session.getAttribute("user_id") == null) {
+		session.setAttribute("user_id", 70);
+	}
+%>
+<%@page import="com.sjl.joinme.selected_activity_list.SelectedActivityListDAO"%>
+<%@page import="com.sjl.joinme.created_activity_list.CreatedActivityListDAO"%>
+<%@page import="com.sjl.joinme.created_activity_list.CreatedActivityListDTO"%>
+<%@page import="java.util.ArrayList"%>
 <html>
 <title>W3.CSS Template</title>
 <meta charset="UTF-8">
@@ -90,71 +100,33 @@ html,body,h1,h2,h3,h4,h5 {font-family: 'Acme', sans-serif;}
 
 
 
+<%
+ArrayList<CreatedActivityListDTO> alADTO=new ArrayList();
+alADTO=new SelectedActivityListDAO().getSelectedActivities((int)session.getAttribute("user_id"));
 
+for(CreatedActivityListDTO adto:alADTO){
+%>
 
-
-            
-              <div class="col-lg-3 col-md-6">
-              <div class="card">
-                <form>
-                <div class="card-body">
-                  <img src="img/person1.jpg" alt="" class="img-fluid rounded-circle w-50 mb-3">
-                  <h3>SPORTS</h3>
-                  <h5 class="text-muted"></h5>
-                  <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Recusandae molestiae alias expedita quae esse ut.</p>
-                  <div class="d-flex flex-row justify-content-center">
-                    <div class="p-4">
-                      <input type="submit" class="btn btn-dark" value="add activity">
-                    </div>
-                  </div>
-                </div>
-                </form>
-              </div>
-            </div>
-          
-
-
-
-
-            
-              <div class="col-lg-3 col-md-6">
-              <div class="card">
-                <form>
-                <div class="card-body">
-                  <img src="img/person1.jpg" alt="" class="img-fluid rounded-circle w-50 mb-3">
-                  <h3>SPORTS</h3>
-                  <h5 class="text-muted"></h5>
-                  <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Recusandae molestiae alias expedita quae esse ut.</p>
-                  <div class="d-flex flex-row justify-content-center">
-                    <div class="p-4">
-                      <input type="submit" class="btn btn-dark" value="add activity">
-                    </div>
-                  </div>
-                </div>
-                </form>
-              </div>
-            </div>
-          
-
-            
-              <div class="col-lg-3 col-md-6">
-              <div class="card">
-                <form>
-                <div class="card-body">
-                  <img src="img/person1.jpg" alt="" class="img-fluid rounded-circle w-50 mb-3">
-                  <h3>SPORTS</h3>
-                  <h5 class="text-muted"></h5>
-                  <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Recusandae molestiae alias expedita quae esse ut.</p>
-                  <div class="d-flex flex-row justify-content-center">
-                    <div class="p-4">
-                      <input type="submit" class="btn btn-dark" value="add activity">
-                    </div>
-                  </div>
-                </div>
-                </form>
-              </div>
-            </div>
-          
+						<div class="col-lg-3 col-md-6">
+							<div class="card">
+								<div class="card-body">
+									<form action="activity_details.jsp" method="post">
+									<img src="pics/0 (<%=adto.getActivity_id()%150%>).jpg" alt=""
+										class="img-fluid rounded-circle w-50 mb-3">
+									<h3><%=adto.getActivity_name()%></h3>
+									<h5 class="text-muted"></h5>
+									<p><%= adto.getActivity_description()%></p>
+									<div class="d-flex flex-row justify-content-center">
+										<div class="p-4">
+										<input type="hidden" name="activity_id" value=<%=adto.getActivity_id() %>>
+											<input class="btn btn-dark" type="submit" name="show_details" value="details" >
+										</div>
+									</div>
+									</form>
+								</div>
+							</div>
+						</div>
+<%} %>
 
 
 
@@ -165,57 +137,7 @@ html,body,h1,h2,h3,h4,h5 {font-family: 'Acme', sans-serif;}
 
 
 
-
-
-            <div class="col-lg-3 col-md-6">
-              <div class="card">
-                <div class="card-body">
-                  <img src="img/person2.jpg" alt="" class="img-fluid rounded-circle w-50 mb-3">
-                  <h3>SPORTS</h3>
-                  <h5 class="text-muted"></h5>
-                  <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Recusandae molestiae alias expedita quae esse ut.</p>
-                  <div class="d-flex flex-row justify-content-center">
-                    <div class="p-4">
-                      <a href="#" class="btn btn-dark">Select Activity</a>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="col-lg-3 col-md-6">
-              <div class="card">
-                <div class="card-body">
-                  <img src="img/person3.jpg" alt="" class="img-fluid rounded-circle w-50 mb-3">
-                  <h3>SPORTS</h3>
-                  <h5 class="text-muted"></h5>
-                  <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Recusandae molestiae alias expedita quae esse ut.</p>
-                  <div class="d-flex flex-row justify-content-center">
-
-                      <div class="p-4">
-                        <a href="#" class="btn btn-dark">Select Activity</a>
-                      </div>
-
-
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="col-lg-3 col-md-6">
-              <div class="card">
-                <div class="card-body">
-                  <img src="img/person4.jpg" alt="" class="img-fluid rounded-circle w-50 mb-3">
-                  <h3>SPORTS</h3>
-                  <h5 class="text-muted"></h5>
-                  <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Recusandae molestiae alias expedita quae esse ut.</p>
-                  <div class="d-flex flex-row justify-content-center">
-                    <div class="p-4">
-                      <a href="#" class="btn btn-dark">Select Activity</a>
-                    </div>
-
-                  </div>
-                </div>
-              </div>
-            </div>
+  
           </div>
         </div>
       </section>
