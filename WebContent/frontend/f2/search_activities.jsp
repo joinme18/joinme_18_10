@@ -1,19 +1,9 @@
 <!DOCTYPE html>
-<%@page
-	import="com.sjl.joinme.created_activity_list.CreatedActivityListDAO"%>
-<%@page
-	import="com.sjl.joinme.created_activity_list.CreatedActivityListDTO"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="com.sjl.joinme.tags.TagsDAO"%>
 <%@page import="com.sjl.joinme.tags.TagsDTO"%>
 <html>
-<title>Search Activities</title>
-
-<!-- Search files starts here -->
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link type="text/css" rel="stylesheet" href="search/style.css">
-<!-- Search files ends here -->
-
+<title>W3.CSS Template</title>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
@@ -70,7 +60,7 @@ html, body, h1, h2, h3, h4, h5 {
 		<button
 			class="w3-bar-item w3-button w3-hide-large w3-hover-none w3-hover-text-light-grey"
 			onclick="w3_open();">
-			<i class="fa fa-bars"></i>  Menu
+			<i class="fa fa-bars"></i> Â Menu
 		</button>
 		<span class="w3-bar-item w3-right"><img class="w3-circle"
 			src="img/joinme.jpg" style="width: 50px;">JOIN ME!</span>
@@ -101,7 +91,7 @@ html, body, h1, h2, h3, h4, h5 {
 			<a href="#"
 				class="w3-bar-item w3-button w3-padding-16 w3-hide-large w3-dark-grey w3-hover-black"
 				onclick="w3_close()" title="close menu"><i
-				class="fas fa-user-alt"></i>  Close Menu</a> <a href="#"
+				class="fas fa-user-alt"></i>Â  Close Menu</a> <a href="#"
 				class="w3-bar-item w3-button w3-padding-16 w3-hide-large w3-dark-grey w3-hover-black"
 				onclick="w3_close()" title="close menu"><i
 				class="fas fa-user-alt"></i>Close Menu</a> <a href="home.jsp"
@@ -143,133 +133,110 @@ html, body, h1, h2, h3, h4, h5 {
 					<div class="col">
 						<div class="info-header mb-5">
 							<h1 class="text-primary mt-5 pb-3">Search Activities</h1>
-							<p class="lead pb-3">Here you can have a search for
-								activity of your Interest...</p>
+							<p class="lead pb-3">Lorem ipsum dolor sit amet, consectetur
+								adipisicing elit. Amet omnis fuga maiores excepturi dolores
+								explicabo.</p>
 						</div>
 					</div>
 				</div>
-			</div>
+				<div class="container mb-3">
 
-			<!-- Search Box -->
-			<div class="container mb-3">
-				<div class="row justify-content-center">
-					<div class="col-12 col-md-10 col-lg-8">
-						<form autocomplete="off" action="search_activities.jsp"
-							method="post">
-							<div class="autocomplete" style="width: 300px;">
-								<input id="myInput" type="text" name="tag"
-									placeholder="Select Activities">
+					<div class="row justify-content-center">
+						<div class="col-12 col-md-10 col-lg-8">
+							<form class="card card-sm">
+								<div class="card-body row no-gutters align-items-center">
+									<div class="col-auto">
+										<i class="fas fa-search h4 text-body"></i>
+									</div>
+									<!--end of col-->
+									<div class="col">
+										<input
+											class="form-control form-control-lg form-control-borderless"
+											type="search" placeholder="Search tags">
+									</div>
+									<!--end of col-->
+									<div class="col-auto">
+										<button class="btn btn-lg btn-success" type="submit">Search</button>
+									</div>
+									<!--end of col-->
+								</div>
+							</form>
+						</div>
+						<!--end of col-->
+					</div>
+				</div>
+				<div class="container">
+					<div class="row">
+						<div class="col">
+							<div class="info-header mb-5">
+								<h1 class="text-primary mt-5 pb-3">Trending List</h1>
+								<p class="lead pb-3">Lorem ipsum dolor sit amet, consectetur
+									adipisicing elit. Amet omnis fuga maiores excepturi dolores
+									explicabo.</p>
 							</div>
-							<input type="submit">
-						</form>
-					</div>
-					<!--end of col-->
-				</div>
-			</div>
-			<!-- Search Box Completed -->
-
-
-			<%
-				if (request.getMethod().equalsIgnoreCase("get")) {
-			%>
-			<div class="container">
-				<div class="row">
-					<div class="col">
-						<div class="info-header mb-5">
-							<h1 class="text-primary mt-5 pb-3">Trending List</h1>
-							<p class="lead pb-3">Here goes the list of Trending
-								Activities.......</p>
 						</div>
 					</div>
-				</div>
-				<div class="row">
-					<%
-						ArrayList<TagsDTO> alTDTO = new ArrayList<>();
-							TagsDAO tdao = new TagsDAO();
-							alTDTO = tdao.getAllTagsDTO();
+					<div class="row">
 
-							for (TagsDTO tdto : alTDTO) {
-					%>
 
-					<div class="col-lg-3 col-md-6">
-						<div class="card">
-							<div class="card-body">
-								<form action="show_all_activities.jsp" method="post">
-									<img src="pics/0 (<%=tdto.getTag_id() % 150%>).jpg" alt=""
+
+
+
+
+
+<%
+ArrayList<TagsDTO> alTDTO=new ArrayList();
+TagsDAO tdao=new TagsDAO();
+alTDTO=tdao.getAllTagsDTO();
+
+for(TagsDTO tdto:alTDTO){
+%>
+
+						<div class="col-lg-3 col-md-6">
+							<div class="card">
+								<div class="card-body">
+									<form action="show_all_activities.jsp" method="post">
+									<img src="pics/0 (<%=tdto.getTag_id()%150%>).jpg" alt=""
 										class="img-fluid rounded-circle w-50 mb-3">
 									<h3><%=tdto.getTag()%></h3>
 									<h5 class="text-muted"></h5>
-									<p><%=tdto.getTag_description()%></p>
+									<p><%= tdto.getTag_description()%></p>
 									<div class="d-flex flex-row justify-content-center">
 										<div class="p-4">
-											<input type="hidden" name="tag_id"
-												value=<%=tdto.getTag_id()%>> <input
-												class="btn btn-dark" type="submit" name="show_activities"
-												value="view">
+										<input type="hidden" name="tag_id" value=<%=tdto.getTag_id() %>>
+											<input class="btn btn-dark" type="submit" name="show_activities" value="view" >
 										</div>
 									</div>
-								</form>
-							</div>
-						</div>
-					</div>
-					<%
-						}
-
-						} else {
-					%>
-					<div class="container">
-						<div class="row">
-							<div class="col">
-								<div class="info-header mb-5">
-									<h1 class="text-primary mt-5 pb-3">Searched Activities</h1>
-									<p class="lead pb-3">Here are some of the Searched
-										Activities.....</p>
+									</form>
 								</div>
 							</div>
 						</div>
-						<div class="row">
+<%} %>
 
 
-							<%
-								String tag = request.getParameter("tag");
-									ArrayList<CreatedActivityListDTO> al = new ArrayList<>();
-									al = new CreatedActivityListDAO().getAllCreatedActivityListWithTagName(tag);
-									if (al != null)
-										for (CreatedActivityListDTO tdto : al) {
-							%>
 
-							<div class="col-lg-3 col-md-6">
-								<div class="card">
-									<div class="card-body">
-										<form action="activity_details.jsp" method="post">
-											<img src="pics/0 (<%=tdto.getActivity_id() % 150%>).jpg" alt=""
-												class="img-fluid rounded-circle w-50 mb-3">
-											<h3><%=tdto.getActivity_name()%></h3>
-											<h5 class="text-muted"></h5>
-											<p><%=tdto.getActivity_description()%></p>
-											<div class="d-flex flex-row justify-content-center">
-												<div class="p-4">
-													<input type="hidden" name="activity_id"
-														value=<%=tdto.getActivity_id()%>> <input
-														class="btn btn-dark" type="submit" name="show_details"
-														value="details">
-												</div>
-											</div>
-										</form>
-									</div>
-								</div>
-							</div>
-							<%
-								}
-							%>
 
-						</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 					</div>
-					<%
-						}
-					%>
 				</div>
-			</div>
 		</section>
 		<!-- <div class="w3-row mt-3">
       <div class="w3-col m2 text-center">
@@ -313,7 +280,7 @@ html, body, h1, h2, h3, h4, h5 {
 
 		<!-- Footer -->
 		<footer class="w3-container w3-padding-16 w3-light-grey">
-			<h4></h4>
+			<h4>FOOTER</h4>
 
 		</footer>
 
@@ -355,6 +322,5 @@ html, body, h1, h2, h3, h4, h5 {
 		src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"
 		integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
 		crossorigin="anonymous"></script>
-	<jsp:include page="search/main.jsp"></jsp:include>
 </body>
 </html>

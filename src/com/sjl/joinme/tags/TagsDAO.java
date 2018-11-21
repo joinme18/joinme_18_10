@@ -37,18 +37,29 @@ public class TagsDAO {
 		}
 	}
 
-	public int tagNameToTagID(String tag) {
+	
+	
+	
+	
+	
+	
+	
+
+
+
+	public int tagNameToTagID(String tag)
+	{
 		int flag = -1;
 		try {
 			if (conn == null) {
 				conn = JoinMeDB.getConnection();
 			}
-			String query = "select tag_id from tags where tag='" + tag + "'";
+			String query = "select tag_id from tags where tag='"+tag+"'";
 			ps = conn.prepareStatement(query);
-
+	
 			rs = ps.executeQuery();
 			if (rs.next()) {
-				flag = rs.getInt("tag_id");
+				flag=rs.getInt("tag_id");
 			}
 		} catch (Exception e) {
 			System.out.println("+++Exception in tagNameToTagID:" + e);
@@ -59,6 +70,12 @@ public class TagsDAO {
 		}
 	}
 
+	
+	
+	
+	
+	
+	
 	public boolean updateTags(TagsDTO dto) {
 		boolean flag = false;
 		try {
@@ -100,10 +117,10 @@ public class TagsDAO {
 			return flag;
 		}
 	}
-
+	
 	public ArrayList<TagsDTO> getAllTagsDTO() {
 		ArrayList<TagsDTO> al = new ArrayList<>();
-		TagsDTO dto = null;
+		TagsDTO dto=null;
 		try {
 			if (conn == null) {
 				conn = JoinMeDB.getConnection();
@@ -112,11 +129,11 @@ public class TagsDAO {
 			ps = conn.prepareStatement(query);
 			rs = ps.executeQuery();
 			while (rs.next()) {
-				dto = new TagsDTO();
+				dto=new TagsDTO();
 				dto.setCreated_datetime(rs.getString("created_datetime"));
 				dto.setTag(rs.getString("tag"));
 				dto.setTag_description(rs.getString("tag_description"));
-				dto.setTag_id(rs.getInt("tag_id"));
+				dto.setTag_id(rs.getInt("tag_id"));				
 				al.add(dto);
 			}
 		} catch (Exception e) {
@@ -142,7 +159,7 @@ public class TagsDAO {
 			ps = conn.prepareStatement(query);
 			rs = ps.executeQuery();
 			while (rs.next()) {
-				al.add("\"" + rs.getString("tag") + "\"");
+				al.add(rs.getString("tag"));
 			}
 		} catch (Exception e) {
 			System.out.println("+++Exception in getAllTags:" + e);
@@ -156,36 +173,55 @@ public class TagsDAO {
 			return al;
 		}
 	}
-
+	public static void main(String[] args) {
+		for(TagsDTO dto: new TagsDAO().getAllTagsDTO())
+			System.out.println(dto.getTag()+"\t"+dto.getTag_description());
+	}
+	
+	
+	
+	
+	
+	
+	
 	public TagsDTO getTagDTO(int tag_id) {
-
-		TagsDTO dto = null;
+		
+		TagsDTO dto=null;
 		try {
 			if (conn == null) {
 				conn = JoinMeDB.getConnection();
 			}
-			String query = "select * from tags where tag_id='" + tag_id + "'";
+			String query = "select * from tags where tag_id='"+tag_id+"'";
 			ps = conn.prepareStatement(query);
 			rs = ps.executeQuery();
-			if (rs.next()) {
-				dto = new TagsDTO();
+			if(rs.next()) {
+				dto=new TagsDTO();
 				dto.setCreated_datetime(rs.getString("created_datetime"));
 				dto.setTag(rs.getString("tag"));
 				dto.setTag_description(rs.getString("tag_description"));
-				dto.setTag_id(rs.getInt("tag_id"));
-
+				dto.setTag_id(rs.getInt("tag_id"));				
+				
 			}
 		} catch (Exception e) {
 			System.out.println("+++Exception in getTagDTO:" + e);
 		} finally {
-
+			
 			ps = null;
 			rs = null;
 			conn = null;
 			return dto;
 		}
 	}
-	public static void main(String[] args) {
-		System.out.println(new TagsDAO().getAllTags());
-	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 }
