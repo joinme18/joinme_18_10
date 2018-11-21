@@ -7,18 +7,6 @@ import java.util.ArrayList;
 
 import com.sjl.joinme.database.JoinMeDB;
 
-
-
-
-
-
-
-
-
-
-
-
-
 public class CreatedActivityListDAO {
 	private Connection conn = null;
 	private PreparedStatement ps = null;
@@ -31,7 +19,8 @@ public class CreatedActivityListDAO {
 				conn = JoinMeDB.getConnection();
 			}
 			String query = "insert into created_activity_list(tag_id, user_id,"
-					+ " cost, activity_name, activity_description, activity_date, status,lat,lng)" + " values(?,?,?,?,?,?,?,?,?)";
+					+ " cost, activity_name, activity_description, activity_date, status,lat,lng)"
+					+ " values(?,?,?,?,?,?,?,?,?)";
 			ps = conn.prepareStatement(query);
 			ps.setInt(1, dto.getTag_id());
 			ps.setInt(2, dto.getUser_id());
@@ -40,8 +29,8 @@ public class CreatedActivityListDAO {
 			ps.setString(5, dto.getActivity_description());
 			ps.setString(6, dto.getActivity_date());
 			ps.setString(7, "" + dto.getStatus());
-			ps.setString(8,dto.getLat());
-			ps.setString(9,dto.getLng());
+			ps.setString(8, dto.getLat());
+			ps.setString(9, dto.getLng());
 			if (ps.executeUpdate() > 0) {
 				flag = true;
 			}
@@ -54,23 +43,6 @@ public class CreatedActivityListDAO {
 		}
 	}
 
-	
-	
-	
-	
-	
-
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 	public boolean updateCreatedActivityList(CreatedActivityListDTO dto) {
 		boolean flag = false;
 		try {
@@ -78,7 +50,8 @@ public class CreatedActivityListDAO {
 				conn = JoinMeDB.getConnection();
 			}
 			String query = "update created_activity_list set tag_id=?, user_id=?,cost=?,"
-					+ " activity_name=?, activity_description=?, activity_date=?, status=? where tag_id=" + dto.getActivity_id();
+					+ " activity_name=?, activity_description=?, activity_date=?, status=? where tag_id="
+					+ dto.getActivity_id();
 			ps = conn.prepareStatement(query);
 			ps.setInt(1, dto.getTag_id());
 			ps.setInt(2, dto.getUser_id());
@@ -119,24 +92,18 @@ public class CreatedActivityListDAO {
 		}
 	}
 
-	
-	
-	
-	
-	
-	
 	public int incrementCount(int activity_id) {
-		int count=getCount(activity_id)+1;
-		int flag=-1;
+		int count = getCount(activity_id) + 1;
+		int flag = -1;
 		try {
 			if (conn == null) {
 				conn = JoinMeDB.getConnection();
 			}
 			String query = "update created_activity_list set count=? where activity_id=" + activity_id;
 			ps = conn.prepareStatement(query);
-			ps.setInt(1,count);
-			if(ps.executeUpdate()>0) {
-				flag=count;
+			ps.setInt(1, count);
+			if (ps.executeUpdate() > 0) {
+				flag = count;
 			}
 		} catch (Exception e) {
 			System.out.println("+++Exception in incrementCount:" + e);
@@ -147,18 +114,7 @@ public class CreatedActivityListDAO {
 			return flag;
 		}
 	}
-	
-	
-	
-	public static void main(String[] args) {
-		System.out.println(new CreatedActivityListDAO().incrementCount(34));
-	}
-	
-	
-	
-	
-	
-	
+
 	public int getCount(int activity_id) {
 		int count = -1;
 		try {
@@ -169,7 +125,7 @@ public class CreatedActivityListDAO {
 			ps = conn.prepareStatement(query);
 			rs = ps.executeQuery();
 			if (rs.next()) {
-				count=rs.getInt("count");
+				count = rs.getInt("count");
 			}
 		} catch (Exception e) {
 			System.out.println("+++Exception in getCount:" + e);
@@ -180,19 +136,18 @@ public class CreatedActivityListDAO {
 			return count;
 		}
 	}
-	
-	
-	public int setCount(int activity_id,int count) {
-		int flag=-1;
+
+	public int setCount(int activity_id, int count) {
+		int flag = -1;
 		try {
 			if (conn == null) {
 				conn = JoinMeDB.getConnection();
 			}
 			String query = "update created_activity_list set count=? where activity_id=" + activity_id;
 			ps = conn.prepareStatement(query);
-			ps.setInt(1,count);
-			if(ps.executeUpdate()>0) {
-				flag=count;
+			ps.setInt(1, count);
+			if (ps.executeUpdate() > 0) {
+				flag = count;
 			}
 		} catch (Exception e) {
 			System.out.println("+++Exception in setCount:" + e);
@@ -203,7 +158,6 @@ public class CreatedActivityListDAO {
 			return flag;
 		}
 	}
-	
 
 	public CreatedActivityListDTO getCreatedActivityList(int activity_id) {
 		CreatedActivityListDTO dto = null;
@@ -275,54 +229,80 @@ public class CreatedActivityListDAO {
 		}
 	}
 
-
-
-
-
-public ArrayList<CreatedActivityListDTO> getAllCreatedActivityListWithTagID(int tag_id) 
-{
-	ArrayList<CreatedActivityListDTO> al = new ArrayList<>();
-	CreatedActivityListDTO dto = null;
-	try 
-	{
-		if (conn == null)
-{
-			conn = JoinMeDB.getConnection();
-		}
-		String query = "select * from created_activity_list where tag_id='"+tag_id+"'";
-		ps = conn.prepareStatement(query);
-		rs = ps.executeQuery();
-		while (rs.next()) 
-		{
-			dto = new CreatedActivityListDTO();
-			dto.setActivity_date(rs.getString("activity_date"));
-			dto.setActivity_id(rs.getInt("activity_id"));
-			dto.setActivity_name(rs.getString("activity_name"));
-			dto.setCost(rs.getInt("cost"));
-			dto.setCreated_datetime(rs.getString("created_datetime"));
-			dto.setActivity_description(rs.getString("Activity_description"));
-			dto.setStatus(rs.getString("status").charAt(0));
-			dto.setTag_id(rs.getInt("tag_id"));
-			dto.setUser_id(rs.getInt("user_id"));
-			al.add(dto);
+	public ArrayList<CreatedActivityListDTO> getAllCreatedActivityListWithTagID(int tag_id) {
+		ArrayList<CreatedActivityListDTO> al = new ArrayList<>();
+		CreatedActivityListDTO dto = null;
+		try {
+			if (conn == null) {
+				conn = JoinMeDB.getConnection();
+			}
+			String query = "select * from created_activity_list where tag_id=" + tag_id;
+			ps = conn.prepareStatement(query);
+			rs = ps.executeQuery();
+			while (rs.next()) {
+				dto = new CreatedActivityListDTO();
+				dto.setActivity_date(rs.getString("activity_date"));
+				dto.setActivity_id(rs.getInt("activity_id"));
+				dto.setActivity_name(rs.getString("activity_name"));
+				dto.setCost(rs.getInt("cost"));
+				dto.setCreated_datetime(rs.getString("created_datetime"));
+				dto.setActivity_description(rs.getString("Activity_description"));
+				dto.setStatus(rs.getString("status").charAt(0));
+				dto.setTag_id(rs.getInt("tag_id"));
+				dto.setUser_id(rs.getInt("user_id"));
+				al.add(dto);
+			}
+		} catch (Exception e) {
+			System.out.println("+++Exception in getAllCreatedActivityList:" + e);
+		} finally {
+			if (al.isEmpty()) {
+				al = null;
+			}
+			ps = null;
+			rs = null;
+			conn = null;
+			return al;
 		}
 	}
-	catch (Exception e) 
-	{
-		System.out.println("+++Exception in getAllCreatedActivityList:" + e);
-	} 
-	finally 
-	{
-		if (al.isEmpty()) 
-		{
-			al = null;
+
+	public ArrayList<CreatedActivityListDTO> getAllCreatedActivityListWithTagName(String tag_name) {
+		ArrayList<CreatedActivityListDTO> al = new ArrayList<>();
+		CreatedActivityListDTO dto = null;
+		try {
+			if (conn == null) {
+				conn = JoinMeDB.getConnection();
+			}
+			String query = "SELECT * FROM created_activity_list inner join tags on tags.tag_id="
+					+ "created_activity_list.tag_id and tags.tag='" + tag_name + "'";
+			ps = conn.prepareStatement(query);
+			rs = ps.executeQuery();
+			while (rs.next()) {
+				dto = new CreatedActivityListDTO();
+				dto.setActivity_date(rs.getString("activity_date"));
+				dto.setActivity_id(rs.getInt("activity_id"));
+				dto.setActivity_name(rs.getString("activity_name"));
+				dto.setCost(rs.getInt("cost"));
+				dto.setCreated_datetime(rs.getString("created_datetime"));
+				dto.setActivity_description(rs.getString("Activity_description"));
+				dto.setStatus(rs.getString("status").charAt(0));
+				dto.setTag_id(rs.getInt("tag_id"));
+				dto.setUser_id(rs.getInt("user_id"));
+				al.add(dto);
+			}
+		} catch (Exception e) {
+			System.out.println("+++Exception in getAllCreatedActivityList:" + e);
+		} finally {
+			if (al.isEmpty()) {
+				al = null;
+			}
+			ps = null;
+			rs = null;
+			conn = null;
+			return al;
 		}
-		ps = null;
-		rs = null;
-		conn = null;
-		return al;
+	}
+
+	public static void main(String[] args) {
+		System.out.println(new CreatedActivityListDAO().getAllCreatedActivityListWithTagName("outdoor games"));
 	}
 }
-}
-
-
